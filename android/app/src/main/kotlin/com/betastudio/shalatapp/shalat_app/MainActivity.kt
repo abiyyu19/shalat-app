@@ -1,0 +1,5 @@
+package com.betastudio.shalatapp.shalat_app
+
+import io.flutter.embedding.android.FlutterActivity
+
+class MainActivity : FlutterActivity()
