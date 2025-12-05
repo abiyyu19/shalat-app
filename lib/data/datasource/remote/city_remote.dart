@@ -17,9 +17,9 @@ class CityRemoteImpl implements CityRemote {
 
   final Dio _dio;
 
-  static final String baseCityEndpoint = '/sholat/kota';
-  static final String allCityEndpoint = '$baseCityEndpoint/semua';
-  static final String searchCityEndpoint = '$baseCityEndpoint/cari';
+  static const String baseCityEndpoint = '/sholat/kota';
+  static const String allCityEndpoint = '$baseCityEndpoint/semua';
+  static const String searchCityEndpoint = '$baseCityEndpoint/cari';
 
   @override
   Future<Result<List<CityDto>>> getAllCity() async {
