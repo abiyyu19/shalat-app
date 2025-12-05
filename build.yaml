@@ -1,6 +1,11 @@
 targets:
   $default:
     builders:
+      drift_dev:
+        options:
+          store_date_time_values_as_text: true # (default)
+          # To use ISO 8601 strings
+          # store_date_time_values_as_text: true
       json_serializable:
         options:
           # Options configure how source code is generated for every
