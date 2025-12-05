@@ -24,7 +24,7 @@ class CityDao extends DatabaseAccessor<AppDatabase>
   }
 
   @override
-  Future<Result<CityModel>> getCityById({required int cityId}) async {
+  Future<Result<CityModel?>> getCityById({required int cityId}) async {
     try {
       final cityEntityData =
           await (select(
@@ -32,7 +32,12 @@ class CityDao extends DatabaseAccessor<AppDatabase>
               )..where(
                 (city) => city.id.equals(cityId),
               ))
-              .getSingle();
+              .getSingleOrNull();
+
+      if (cityEntityData == null) {
+        return Result.ok(null);
+      }
+
       return Result.ok(CityMapper.dataToModel(cityEntityData));
     } catch (e) {
       return Result.error(Exception(e));

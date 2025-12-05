@@ -3,7 +3,7 @@ import 'package:shalat_app/domain/domain.dart';
 
 abstract interface class CityLocal {
   Future<Result<List<CityModel>>> getAllCity();
-  Future<Result<CityModel>> getCityById({required final int cityId});
+  Future<Result<CityModel?>> getCityById({required final int cityId});
   Future<Result<List<CityModel>>> searchCityByQuery({
     required final String query,
   });

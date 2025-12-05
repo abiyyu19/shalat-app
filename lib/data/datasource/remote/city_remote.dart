@@ -2,14 +2,16 @@ import 'package:dio/dio.dart';
 import 'package:shalat_app/core/core.dart';
 import 'package:shalat_app/data/data.dart';
 
-sealed class LocationRemote {
+sealed class CityRemote {
   Future<Result<List<CityDto>>> getAllCity();
-  Future<Result<List<CityDto>>> searchCities({required final String query});
-  Future<Result<CityDto>> getCityById({required final String cityId});
+  Future<Result<List<CityDto>>> searchCitiesByQuery({
+    required final String query,
+  });
+  Future<Result<CityDto?>> getCityById({required final String cityId});
 }
 
-class LocationRemoteImpl implements LocationRemote {
-  const LocationRemoteImpl({
+class CityRemoteImpl implements CityRemote {
+  const CityRemoteImpl({
     required final Dio dio,
   }) : _dio = dio;
 
@@ -64,7 +66,7 @@ class LocationRemoteImpl implements LocationRemote {
   }
 
   @override
-  Future<Result<CityDto>> getCityById({required final String cityId}) async {
+  Future<Result<CityDto?>> getCityById({required final String cityId}) async {
     try {
       final Response res = await _dio.get('$baseCityEndpoint/$cityId');
 
@@ -98,7 +100,7 @@ class LocationRemoteImpl implements LocationRemote {
   }
 
   @override
-  Future<Result<List<CityDto>>> searchCities({
+  Future<Result<List<CityDto>>> searchCitiesByQuery({
     required final String query,
   }) async {
     try {
