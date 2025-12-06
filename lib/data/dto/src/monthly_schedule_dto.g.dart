@@ -1,23 +1,25 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'shalat_data_dto.dart';
+part of 'monthly_schedule_dto.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_ShalatDataDto _$ShalatDataDtoFromJson(Map<String, dynamic> json) =>
-    _ShalatDataDto(
+_MonthlyScheduleDto _$MonthlyScheduleDtoFromJson(Map<String, dynamic> json) =>
+    _MonthlyScheduleDto(
       id: (json['id'] as num).toInt(),
       lokasi: json['lokasi'] as String,
       daerah: json['daerah'] as String,
-      jadwal: ScheduleDto.fromJson(json['jadwal'] as Map<String, dynamic>),
+      jadwal: (json['jadwal'] as List<dynamic>)
+          .map((e) => ScheduleDto.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
-Map<String, dynamic> _$ShalatDataDtoToJson(_ShalatDataDto instance) =>
+Map<String, dynamic> _$MonthlyScheduleDtoToJson(_MonthlyScheduleDto instance) =>
     <String, dynamic>{
       'id': instance.id,
       'lokasi': instance.lokasi,
       'daerah': instance.daerah,
-      'jadwal': instance.jadwal.toJson(),
+      'jadwal': instance.jadwal.map((e) => e.toJson()).toList(),
     };

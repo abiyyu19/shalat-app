@@ -5,7 +5,7 @@ class ScheduleEntity extends Table {
   IntColumn get id => integer().autoIncrement()();
   IntColumn get locationId => integer().references(CityEntity, #id)();
 
-  TextColumn get date => text()(); // 2025-12-04
+  DateTimeColumn get date => dateTime()(); // 2025-12-04 convert to DateTime
   TextColumn get parsedDate => text()(); // Kamis, 04/12/2025
 
   TextColumn get imsak => text()();

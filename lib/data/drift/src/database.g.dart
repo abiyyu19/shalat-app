@@ -281,11 +281,11 @@ class $ScheduleEntityTable extends ScheduleEntity
   );
   static const VerificationMeta _dateMeta = const VerificationMeta('date');
   @override
-  late final GeneratedColumn<String> date = GeneratedColumn<String>(
+  late final GeneratedColumn<DateTime> date = GeneratedColumn<DateTime>(
     'date',
     aliasedName,
     false,
-    type: DriftSqlType.string,
+    type: DriftSqlType.dateTime,
     requiredDuringInsert: true,
   );
   static const VerificationMeta _parsedDateMeta = const VerificationMeta(
@@ -509,7 +509,7 @@ class $ScheduleEntityTable extends ScheduleEntity
         data['${effectivePrefix}location_id'],
       )!,
       date: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
+        DriftSqlType.dateTime,
         data['${effectivePrefix}date'],
       )!,
       parsedDate: attachedDatabase.typeMapping.read(
@@ -561,7 +561,7 @@ class ScheduleEntityData extends DataClass
     implements Insertable<ScheduleEntityData> {
   final int id;
   final int locationId;
-  final String date;
+  final DateTime date;
   final String parsedDate;
   final String imsak;
   final String subuh;
@@ -590,7 +590,7 @@ class ScheduleEntityData extends DataClass
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
     map['location_id'] = Variable<int>(locationId);
-    map['date'] = Variable<String>(date);
+    map['date'] = Variable<DateTime>(date);
     map['parsed_date'] = Variable<String>(parsedDate);
     map['imsak'] = Variable<String>(imsak);
     map['subuh'] = Variable<String>(subuh);
@@ -628,7 +628,7 @@ class ScheduleEntityData extends DataClass
     return ScheduleEntityData(
       id: serializer.fromJson<int>(json['id']),
       locationId: serializer.fromJson<int>(json['locationId']),
-      date: serializer.fromJson<String>(json['date']),
+      date: serializer.fromJson<DateTime>(json['date']),
       parsedDate: serializer.fromJson<String>(json['parsedDate']),
       imsak: serializer.fromJson<String>(json['imsak']),
       subuh: serializer.fromJson<String>(json['subuh']),
@@ -646,7 +646,7 @@ class ScheduleEntityData extends DataClass
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
       'locationId': serializer.toJson<int>(locationId),
-      'date': serializer.toJson<String>(date),
+      'date': serializer.toJson<DateTime>(date),
       'parsedDate': serializer.toJson<String>(parsedDate),
       'imsak': serializer.toJson<String>(imsak),
       'subuh': serializer.toJson<String>(subuh),
@@ -662,7 +662,7 @@ class ScheduleEntityData extends DataClass
   ScheduleEntityData copyWith({
     int? id,
     int? locationId,
-    String? date,
+    DateTime? date,
     String? parsedDate,
     String? imsak,
     String? subuh,
@@ -762,7 +762,7 @@ class ScheduleEntityData extends DataClass
 class ScheduleEntityCompanion extends UpdateCompanion<ScheduleEntityData> {
   final Value<int> id;
   final Value<int> locationId;
-  final Value<String> date;
+  final Value<DateTime> date;
   final Value<String> parsedDate;
   final Value<String> imsak;
   final Value<String> subuh;
@@ -789,7 +789,7 @@ class ScheduleEntityCompanion extends UpdateCompanion<ScheduleEntityData> {
   ScheduleEntityCompanion.insert({
     this.id = const Value.absent(),
     required int locationId,
-    required String date,
+    required DateTime date,
     required String parsedDate,
     required String imsak,
     required String subuh,
@@ -813,7 +813,7 @@ class ScheduleEntityCompanion extends UpdateCompanion<ScheduleEntityData> {
   static Insertable<ScheduleEntityData> custom({
     Expression<int>? id,
     Expression<int>? locationId,
-    Expression<String>? date,
+    Expression<DateTime>? date,
     Expression<String>? parsedDate,
     Expression<String>? imsak,
     Expression<String>? subuh,
@@ -843,7 +843,7 @@ class ScheduleEntityCompanion extends UpdateCompanion<ScheduleEntityData> {
   ScheduleEntityCompanion copyWith({
     Value<int>? id,
     Value<int>? locationId,
-    Value<String>? date,
+    Value<DateTime>? date,
     Value<String>? parsedDate,
     Value<String>? imsak,
     Value<String>? subuh,
@@ -880,7 +880,7 @@ class ScheduleEntityCompanion extends UpdateCompanion<ScheduleEntityData> {
       map['location_id'] = Variable<int>(locationId.value);
     }
     if (date.present) {
-      map['date'] = Variable<String>(date.value);
+      map['date'] = Variable<DateTime>(date.value);
     }
     if (parsedDate.present) {
       map['parsed_date'] = Variable<String>(parsedDate.value);
@@ -1212,7 +1212,7 @@ typedef $$ScheduleEntityTableCreateCompanionBuilder =
     ScheduleEntityCompanion Function({
       Value<int> id,
       required int locationId,
-      required String date,
+      required DateTime date,
       required String parsedDate,
       required String imsak,
       required String subuh,
@@ -1227,7 +1227,7 @@ typedef $$ScheduleEntityTableUpdateCompanionBuilder =
     ScheduleEntityCompanion Function({
       Value<int> id,
       Value<int> locationId,
-      Value<String> date,
+      Value<DateTime> date,
       Value<String> parsedDate,
       Value<String> imsak,
       Value<String> subuh,
@@ -1286,7 +1286,7 @@ class $$ScheduleEntityTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
-  ColumnFilters<String> get date => $composableBuilder(
+  ColumnFilters<DateTime> get date => $composableBuilder(
     column: $table.date,
     builder: (column) => ColumnFilters(column),
   );
@@ -1374,7 +1374,7 @@ class $$ScheduleEntityTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<String> get date => $composableBuilder(
+  ColumnOrderings<DateTime> get date => $composableBuilder(
     column: $table.date,
     builder: (column) => ColumnOrderings(column),
   );
@@ -1460,7 +1460,7 @@ class $$ScheduleEntityTableAnnotationComposer
   GeneratedColumn<int> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
 
-  GeneratedColumn<String> get date =>
+  GeneratedColumn<DateTime> get date =>
       $composableBuilder(column: $table.date, builder: (column) => column);
 
   GeneratedColumn<String> get parsedDate => $composableBuilder(
@@ -1548,7 +1548,7 @@ class $$ScheduleEntityTableTableManager
               ({
                 Value<int> id = const Value.absent(),
                 Value<int> locationId = const Value.absent(),
-                Value<String> date = const Value.absent(),
+                Value<DateTime> date = const Value.absent(),
                 Value<String> parsedDate = const Value.absent(),
                 Value<String> imsak = const Value.absent(),
                 Value<String> subuh = const Value.absent(),
@@ -1576,7 +1576,7 @@ class $$ScheduleEntityTableTableManager
               ({
                 Value<int> id = const Value.absent(),
                 required int locationId,
-                required String date,
+                required DateTime date,
                 required String parsedDate,
                 required String imsak,
                 required String subuh,

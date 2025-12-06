@@ -2,20 +2,20 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shalat_app/core/core.dart';
 import 'package:shalat_app/data/data.dart';
 
-part 'shalat_data_dto.freezed.dart';
-part 'shalat_data_dto.g.dart';
+part 'daily_schedule_dto.freezed.dart';
+part 'daily_schedule_dto.g.dart';
 
 @freezed
-sealed class ShalatDataDto with _$ShalatDataDto {
-  const factory ShalatDataDto({
+sealed class DailyScheduleDto with _$DailyScheduleDto {
+  const factory DailyScheduleDto({
     required final int id,
     required final String lokasi,
     required final String daerah,
     required final ScheduleDto jadwal,
-  }) = _ShalatDataDto;
+  }) = _DailyScheduleDto;
 
-  factory ShalatDataDto.fromJson(final JSON json) =>
-      _$ShalatDataDtoFromJson(json);
+  factory DailyScheduleDto.fromJson(final JSON json) =>
+      _$DailyScheduleDtoFromJson(json);
 }
 
 // "data": {
