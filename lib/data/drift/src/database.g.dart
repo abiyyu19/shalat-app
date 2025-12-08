@@ -289,12 +289,10 @@ class $ScheduleEntityTable extends ScheduleEntity
     requiredDuringInsert: false,
     defaultValue: currentDateAndTime,
   );
-  static const VerificationMeta _locationIdMeta = const VerificationMeta(
-    'locationId',
-  );
+  static const VerificationMeta _cityIdMeta = const VerificationMeta('cityId');
   @override
-  late final GeneratedColumn<int> locationId = GeneratedColumn<int>(
-    'location_id',
+  late final GeneratedColumn<int> cityId = GeneratedColumn<int>(
+    'city_id',
     aliasedName,
     false,
     type: DriftSqlType.int,
@@ -402,7 +400,7 @@ class $ScheduleEntityTable extends ScheduleEntity
     id,
     createdAt,
     updatedAt,
-    locationId,
+    cityId,
     date,
     parsedDate,
     imsak,
@@ -441,13 +439,13 @@ class $ScheduleEntityTable extends ScheduleEntity
         updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
       );
     }
-    if (data.containsKey('location_id')) {
+    if (data.containsKey('city_id')) {
       context.handle(
-        _locationIdMeta,
-        locationId.isAcceptableOrUnknown(data['location_id']!, _locationIdMeta),
+        _cityIdMeta,
+        cityId.isAcceptableOrUnknown(data['city_id']!, _cityIdMeta),
       );
     } else if (isInserting) {
-      context.missing(_locationIdMeta);
+      context.missing(_cityIdMeta);
     }
     if (data.containsKey('date')) {
       context.handle(
@@ -536,7 +534,7 @@ class $ScheduleEntityTable extends ScheduleEntity
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   List<Set<GeneratedColumn>> get uniqueKeys => [
-    {locationId, date},
+    {cityId, date},
   ];
   @override
   ScheduleEntityData map(Map<String, dynamic> data, {String? tablePrefix}) {
@@ -554,9 +552,9 @@ class $ScheduleEntityTable extends ScheduleEntity
         DriftSqlType.dateTime,
         data['${effectivePrefix}updated_at'],
       )!,
-      locationId: attachedDatabase.typeMapping.read(
+      cityId: attachedDatabase.typeMapping.read(
         DriftSqlType.int,
-        data['${effectivePrefix}location_id'],
+        data['${effectivePrefix}city_id'],
       )!,
       date: attachedDatabase.typeMapping.read(
         DriftSqlType.dateTime,
@@ -612,7 +610,7 @@ class ScheduleEntityData extends DataClass
   final int id;
   final DateTime createdAt;
   final DateTime updatedAt;
-  final int locationId;
+  final int cityId;
   final DateTime date;
   final String parsedDate;
   final String imsak;
@@ -627,7 +625,7 @@ class ScheduleEntityData extends DataClass
     required this.id,
     required this.createdAt,
     required this.updatedAt,
-    required this.locationId,
+    required this.cityId,
     required this.date,
     required this.parsedDate,
     required this.imsak,
@@ -645,7 +643,7 @@ class ScheduleEntityData extends DataClass
     map['id'] = Variable<int>(id);
     map['created_at'] = Variable<DateTime>(createdAt);
     map['updated_at'] = Variable<DateTime>(updatedAt);
-    map['location_id'] = Variable<int>(locationId);
+    map['city_id'] = Variable<int>(cityId);
     map['date'] = Variable<DateTime>(date);
     map['parsed_date'] = Variable<String>(parsedDate);
     map['imsak'] = Variable<String>(imsak);
@@ -664,7 +662,7 @@ class ScheduleEntityData extends DataClass
       id: Value(id),
       createdAt: Value(createdAt),
       updatedAt: Value(updatedAt),
-      locationId: Value(locationId),
+      cityId: Value(cityId),
       date: Value(date),
       parsedDate: Value(parsedDate),
       imsak: Value(imsak),
@@ -687,7 +685,7 @@ class ScheduleEntityData extends DataClass
       id: serializer.fromJson<int>(json['id']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
       updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
-      locationId: serializer.fromJson<int>(json['locationId']),
+      cityId: serializer.fromJson<int>(json['cityId']),
       date: serializer.fromJson<DateTime>(json['date']),
       parsedDate: serializer.fromJson<String>(json['parsedDate']),
       imsak: serializer.fromJson<String>(json['imsak']),
@@ -707,7 +705,7 @@ class ScheduleEntityData extends DataClass
       'id': serializer.toJson<int>(id),
       'createdAt': serializer.toJson<DateTime>(createdAt),
       'updatedAt': serializer.toJson<DateTime>(updatedAt),
-      'locationId': serializer.toJson<int>(locationId),
+      'cityId': serializer.toJson<int>(cityId),
       'date': serializer.toJson<DateTime>(date),
       'parsedDate': serializer.toJson<String>(parsedDate),
       'imsak': serializer.toJson<String>(imsak),
@@ -725,7 +723,7 @@ class ScheduleEntityData extends DataClass
     int? id,
     DateTime? createdAt,
     DateTime? updatedAt,
-    int? locationId,
+    int? cityId,
     DateTime? date,
     String? parsedDate,
     String? imsak,
@@ -740,7 +738,7 @@ class ScheduleEntityData extends DataClass
     id: id ?? this.id,
     createdAt: createdAt ?? this.createdAt,
     updatedAt: updatedAt ?? this.updatedAt,
-    locationId: locationId ?? this.locationId,
+    cityId: cityId ?? this.cityId,
     date: date ?? this.date,
     parsedDate: parsedDate ?? this.parsedDate,
     imsak: imsak ?? this.imsak,
@@ -757,9 +755,7 @@ class ScheduleEntityData extends DataClass
       id: data.id.present ? data.id.value : this.id,
       createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
       updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
-      locationId: data.locationId.present
-          ? data.locationId.value
-          : this.locationId,
+      cityId: data.cityId.present ? data.cityId.value : this.cityId,
       date: data.date.present ? data.date.value : this.date,
       parsedDate: data.parsedDate.present
           ? data.parsedDate.value
@@ -781,7 +777,7 @@ class ScheduleEntityData extends DataClass
           ..write('id: $id, ')
           ..write('createdAt: $createdAt, ')
           ..write('updatedAt: $updatedAt, ')
-          ..write('locationId: $locationId, ')
+          ..write('cityId: $cityId, ')
           ..write('date: $date, ')
           ..write('parsedDate: $parsedDate, ')
           ..write('imsak: $imsak, ')
@@ -801,7 +797,7 @@ class ScheduleEntityData extends DataClass
     id,
     createdAt,
     updatedAt,
-    locationId,
+    cityId,
     date,
     parsedDate,
     imsak,
@@ -820,7 +816,7 @@ class ScheduleEntityData extends DataClass
           other.id == this.id &&
           other.createdAt == this.createdAt &&
           other.updatedAt == this.updatedAt &&
-          other.locationId == this.locationId &&
+          other.cityId == this.cityId &&
           other.date == this.date &&
           other.parsedDate == this.parsedDate &&
           other.imsak == this.imsak &&
@@ -837,7 +833,7 @@ class ScheduleEntityCompanion extends UpdateCompanion<ScheduleEntityData> {
   final Value<int> id;
   final Value<DateTime> createdAt;
   final Value<DateTime> updatedAt;
-  final Value<int> locationId;
+  final Value<int> cityId;
   final Value<DateTime> date;
   final Value<String> parsedDate;
   final Value<String> imsak;
@@ -852,7 +848,7 @@ class ScheduleEntityCompanion extends UpdateCompanion<ScheduleEntityData> {
     this.id = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.updatedAt = const Value.absent(),
-    this.locationId = const Value.absent(),
+    this.cityId = const Value.absent(),
     this.date = const Value.absent(),
     this.parsedDate = const Value.absent(),
     this.imsak = const Value.absent(),
@@ -868,7 +864,7 @@ class ScheduleEntityCompanion extends UpdateCompanion<ScheduleEntityData> {
     this.id = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.updatedAt = const Value.absent(),
-    required int locationId,
+    required int cityId,
     required DateTime date,
     required String parsedDate,
     required String imsak,
@@ -879,7 +875,7 @@ class ScheduleEntityCompanion extends UpdateCompanion<ScheduleEntityData> {
     required String ashar,
     required String maghrib,
     required String isya,
-  }) : locationId = Value(locationId),
+  }) : cityId = Value(cityId),
        date = Value(date),
        parsedDate = Value(parsedDate),
        imsak = Value(imsak),
@@ -894,7 +890,7 @@ class ScheduleEntityCompanion extends UpdateCompanion<ScheduleEntityData> {
     Expression<int>? id,
     Expression<DateTime>? createdAt,
     Expression<DateTime>? updatedAt,
-    Expression<int>? locationId,
+    Expression<int>? cityId,
     Expression<DateTime>? date,
     Expression<String>? parsedDate,
     Expression<String>? imsak,
@@ -910,7 +906,7 @@ class ScheduleEntityCompanion extends UpdateCompanion<ScheduleEntityData> {
       if (id != null) 'id': id,
       if (createdAt != null) 'created_at': createdAt,
       if (updatedAt != null) 'updated_at': updatedAt,
-      if (locationId != null) 'location_id': locationId,
+      if (cityId != null) 'city_id': cityId,
       if (date != null) 'date': date,
       if (parsedDate != null) 'parsed_date': parsedDate,
       if (imsak != null) 'imsak': imsak,
@@ -928,7 +924,7 @@ class ScheduleEntityCompanion extends UpdateCompanion<ScheduleEntityData> {
     Value<int>? id,
     Value<DateTime>? createdAt,
     Value<DateTime>? updatedAt,
-    Value<int>? locationId,
+    Value<int>? cityId,
     Value<DateTime>? date,
     Value<String>? parsedDate,
     Value<String>? imsak,
@@ -944,7 +940,7 @@ class ScheduleEntityCompanion extends UpdateCompanion<ScheduleEntityData> {
       id: id ?? this.id,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
-      locationId: locationId ?? this.locationId,
+      cityId: cityId ?? this.cityId,
       date: date ?? this.date,
       parsedDate: parsedDate ?? this.parsedDate,
       imsak: imsak ?? this.imsak,
@@ -970,8 +966,8 @@ class ScheduleEntityCompanion extends UpdateCompanion<ScheduleEntityData> {
     if (updatedAt.present) {
       map['updated_at'] = Variable<DateTime>(updatedAt.value);
     }
-    if (locationId.present) {
-      map['location_id'] = Variable<int>(locationId.value);
+    if (cityId.present) {
+      map['city_id'] = Variable<int>(cityId.value);
     }
     if (date.present) {
       map['date'] = Variable<DateTime>(date.value);
@@ -1012,7 +1008,7 @@ class ScheduleEntityCompanion extends UpdateCompanion<ScheduleEntityData> {
           ..write('id: $id, ')
           ..write('createdAt: $createdAt, ')
           ..write('updatedAt: $updatedAt, ')
-          ..write('locationId: $locationId, ')
+          ..write('cityId: $cityId, ')
           ..write('date: $date, ')
           ..write('parsedDate: $parsedDate, ')
           ..write('imsak: $imsak, ')
@@ -1066,17 +1062,14 @@ final class $$CityEntityTableReferences
   static MultiTypedResultKey<$ScheduleEntityTable, List<ScheduleEntityData>>
   _scheduleEntityRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
     db.scheduleEntity,
-    aliasName: $_aliasNameGenerator(
-      db.cityEntity.id,
-      db.scheduleEntity.locationId,
-    ),
+    aliasName: $_aliasNameGenerator(db.cityEntity.id, db.scheduleEntity.cityId),
   );
 
   $$ScheduleEntityTableProcessedTableManager get scheduleEntityRefs {
     final manager = $$ScheduleEntityTableTableManager(
       $_db,
       $_db.scheduleEntity,
-    ).filter((f) => f.locationId.id.sqlEquals($_itemColumn<int>('id')!));
+    ).filter((f) => f.cityId.id.sqlEquals($_itemColumn<int>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_scheduleEntityRefsTable($_db));
     return ProcessedTableManager(
@@ -1116,7 +1109,7 @@ class $$CityEntityTableFilterComposer
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.scheduleEntity,
-      getReferencedColumn: (t) => t.locationId,
+      getReferencedColumn: (t) => t.cityId,
       builder:
           (
             joinBuilder, {
@@ -1185,7 +1178,7 @@ class $$CityEntityTableAnnotationComposer
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.scheduleEntity,
-      getReferencedColumn: (t) => t.locationId,
+      getReferencedColumn: (t) => t.cityId,
       builder:
           (
             joinBuilder, {
@@ -1279,7 +1272,7 @@ class $$CityEntityTableTableManager
                             p0,
                           ).scheduleEntityRefs,
                       referencedItemsForCurrentItem: (item, referencedItems) =>
-                          referencedItems.where((e) => e.locationId == item.id),
+                          referencedItems.where((e) => e.cityId == item.id),
                       typedResults: items,
                     ),
                 ];
@@ -1309,7 +1302,7 @@ typedef $$ScheduleEntityTableCreateCompanionBuilder =
       Value<int> id,
       Value<DateTime> createdAt,
       Value<DateTime> updatedAt,
-      required int locationId,
+      required int cityId,
       required DateTime date,
       required String parsedDate,
       required String imsak,
@@ -1326,7 +1319,7 @@ typedef $$ScheduleEntityTableUpdateCompanionBuilder =
       Value<int> id,
       Value<DateTime> createdAt,
       Value<DateTime> updatedAt,
-      Value<int> locationId,
+      Value<int> cityId,
       Value<DateTime> date,
       Value<String> parsedDate,
       Value<String> imsak,
@@ -1352,19 +1345,19 @@ final class $$ScheduleEntityTableReferences
     super.$_typedResult,
   );
 
-  static $CityEntityTable _locationIdTable(_$AppDatabase db) =>
+  static $CityEntityTable _cityIdTable(_$AppDatabase db) =>
       db.cityEntity.createAlias(
-        $_aliasNameGenerator(db.scheduleEntity.locationId, db.cityEntity.id),
+        $_aliasNameGenerator(db.scheduleEntity.cityId, db.cityEntity.id),
       );
 
-  $$CityEntityTableProcessedTableManager get locationId {
-    final $_column = $_itemColumn<int>('location_id')!;
+  $$CityEntityTableProcessedTableManager get cityId {
+    final $_column = $_itemColumn<int>('city_id')!;
 
     final manager = $$CityEntityTableTableManager(
       $_db,
       $_db.cityEntity,
     ).filter((f) => f.id.sqlEquals($_column));
-    final item = $_typedResult.readTableOrNull(_locationIdTable($_db));
+    final item = $_typedResult.readTableOrNull(_cityIdTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
       manager.$state.copyWith(prefetchedData: [item]),
@@ -1446,10 +1439,10 @@ class $$ScheduleEntityTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
-  $$CityEntityTableFilterComposer get locationId {
+  $$CityEntityTableFilterComposer get cityId {
     final $$CityEntityTableFilterComposer composer = $composerBuilder(
       composer: this,
-      getCurrentColumn: (t) => t.locationId,
+      getCurrentColumn: (t) => t.cityId,
       referencedTable: $db.cityEntity,
       getReferencedColumn: (t) => t.id,
       builder:
@@ -1544,10 +1537,10 @@ class $$ScheduleEntityTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
-  $$CityEntityTableOrderingComposer get locationId {
+  $$CityEntityTableOrderingComposer get cityId {
     final $$CityEntityTableOrderingComposer composer = $composerBuilder(
       composer: this,
-      getCurrentColumn: (t) => t.locationId,
+      getCurrentColumn: (t) => t.cityId,
       referencedTable: $db.cityEntity,
       getReferencedColumn: (t) => t.id,
       builder:
@@ -1618,10 +1611,10 @@ class $$ScheduleEntityTableAnnotationComposer
   GeneratedColumn<String> get isya =>
       $composableBuilder(column: $table.isya, builder: (column) => column);
 
-  $$CityEntityTableAnnotationComposer get locationId {
+  $$CityEntityTableAnnotationComposer get cityId {
     final $$CityEntityTableAnnotationComposer composer = $composerBuilder(
       composer: this,
-      getCurrentColumn: (t) => t.locationId,
+      getCurrentColumn: (t) => t.cityId,
       referencedTable: $db.cityEntity,
       getReferencedColumn: (t) => t.id,
       builder:
@@ -1655,7 +1648,7 @@ class $$ScheduleEntityTableTableManager
           $$ScheduleEntityTableUpdateCompanionBuilder,
           (ScheduleEntityData, $$ScheduleEntityTableReferences),
           ScheduleEntityData,
-          PrefetchHooks Function({bool locationId})
+          PrefetchHooks Function({bool cityId})
         > {
   $$ScheduleEntityTableTableManager(
     _$AppDatabase db,
@@ -1675,7 +1668,7 @@ class $$ScheduleEntityTableTableManager
                 Value<int> id = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<DateTime> updatedAt = const Value.absent(),
-                Value<int> locationId = const Value.absent(),
+                Value<int> cityId = const Value.absent(),
                 Value<DateTime> date = const Value.absent(),
                 Value<String> parsedDate = const Value.absent(),
                 Value<String> imsak = const Value.absent(),
@@ -1690,7 +1683,7 @@ class $$ScheduleEntityTableTableManager
                 id: id,
                 createdAt: createdAt,
                 updatedAt: updatedAt,
-                locationId: locationId,
+                cityId: cityId,
                 date: date,
                 parsedDate: parsedDate,
                 imsak: imsak,
@@ -1707,7 +1700,7 @@ class $$ScheduleEntityTableTableManager
                 Value<int> id = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<DateTime> updatedAt = const Value.absent(),
-                required int locationId,
+                required int cityId,
                 required DateTime date,
                 required String parsedDate,
                 required String imsak,
@@ -1722,7 +1715,7 @@ class $$ScheduleEntityTableTableManager
                 id: id,
                 createdAt: createdAt,
                 updatedAt: updatedAt,
-                locationId: locationId,
+                cityId: cityId,
                 date: date,
                 parsedDate: parsedDate,
                 imsak: imsak,
@@ -1742,7 +1735,7 @@ class $$ScheduleEntityTableTableManager
                 ),
               )
               .toList(),
-          prefetchHooksCallback: ({locationId = false}) {
+          prefetchHooksCallback: ({cityId = false}) {
             return PrefetchHooks(
               db: db,
               explicitlyWatchedTables: [],
@@ -1762,16 +1755,16 @@ class $$ScheduleEntityTableTableManager
                       dynamic
                     >
                   >(state) {
-                    if (locationId) {
+                    if (cityId) {
                       state =
                           state.withJoin(
                                 currentTable: table,
-                                currentColumn: table.locationId,
+                                currentColumn: table.cityId,
                                 referencedTable: $$ScheduleEntityTableReferences
-                                    ._locationIdTable(db),
+                                    ._cityIdTable(db),
                                 referencedColumn:
                                     $$ScheduleEntityTableReferences
-                                        ._locationIdTable(db)
+                                        ._cityIdTable(db)
                                         .id,
                               )
                               as T;
@@ -1800,7 +1793,7 @@ typedef $$ScheduleEntityTableProcessedTableManager =
       $$ScheduleEntityTableUpdateCompanionBuilder,
       (ScheduleEntityData, $$ScheduleEntityTableReferences),
       ScheduleEntityData,
-      PrefetchHooks Function({bool locationId})
+      PrefetchHooks Function({bool cityId})
     >;
 
 class $AppDatabaseManager {
