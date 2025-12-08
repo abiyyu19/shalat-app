@@ -4,11 +4,11 @@ import 'package:shalat_app/data/data.dart';
 part 'monthly_schedule_local_dto.freezed.dart';
 
 @freezed
-sealed class MonthlyScheduleDto with _$MonthlyScheduleDto {
-  const factory MonthlyScheduleDto({
+sealed class MonthlyScheduleLocalDto with _$MonthlyScheduleLocalDto {
+  const factory MonthlyScheduleLocalDto({
     required final CityLocalDto city,
     required final int year,
     required final int month, // 1-12
     required final List<DailyScheduleLocalDto> days,
-  }) = _MonthlyScheduleDto;
+  }) = _MonthlyScheduleLocalDto;
 }

@@ -12,21 +12,21 @@ part of 'monthly_schedule_local_dto.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$MonthlyScheduleDto {
+mixin _$MonthlyScheduleLocalDto {
 
  CityLocalDto get city; int get year; int get month;// 1-12
  List<DailyScheduleLocalDto> get days;
-/// Create a copy of MonthlyScheduleDto
+/// Create a copy of MonthlyScheduleLocalDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$MonthlyScheduleDtoCopyWith<MonthlyScheduleDto> get copyWith => _$MonthlyScheduleDtoCopyWithImpl<MonthlyScheduleDto>(this as MonthlyScheduleDto, _$identity);
+$MonthlyScheduleLocalDtoCopyWith<MonthlyScheduleLocalDto> get copyWith => _$MonthlyScheduleLocalDtoCopyWithImpl<MonthlyScheduleLocalDto>(this as MonthlyScheduleLocalDto, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MonthlyScheduleDto&&(identical(other.city, city) || other.city == city)&&(identical(other.year, year) || other.year == year)&&(identical(other.month, month) || other.month == month)&&const DeepCollectionEquality().equals(other.days, days));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MonthlyScheduleLocalDto&&(identical(other.city, city) || other.city == city)&&(identical(other.year, year) || other.year == year)&&(identical(other.month, month) || other.month == month)&&const DeepCollectionEquality().equals(other.days, days));
 }
 
 
@@ -35,15 +35,15 @@ int get hashCode => Object.hash(runtimeType,city,year,month,const DeepCollection
 
 @override
 String toString() {
-  return 'MonthlyScheduleDto(city: $city, year: $year, month: $month, days: $days)';
+  return 'MonthlyScheduleLocalDto(city: $city, year: $year, month: $month, days: $days)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $MonthlyScheduleDtoCopyWith<$Res>  {
-  factory $MonthlyScheduleDtoCopyWith(MonthlyScheduleDto value, $Res Function(MonthlyScheduleDto) _then) = _$MonthlyScheduleDtoCopyWithImpl;
+abstract mixin class $MonthlyScheduleLocalDtoCopyWith<$Res>  {
+  factory $MonthlyScheduleLocalDtoCopyWith(MonthlyScheduleLocalDto value, $Res Function(MonthlyScheduleLocalDto) _then) = _$MonthlyScheduleLocalDtoCopyWithImpl;
 @useResult
 $Res call({
  CityLocalDto city, int year, int month, List<DailyScheduleLocalDto> days
@@ -54,14 +54,14 @@ $CityLocalDtoCopyWith<$Res> get city;
 
 }
 /// @nodoc
-class _$MonthlyScheduleDtoCopyWithImpl<$Res>
-    implements $MonthlyScheduleDtoCopyWith<$Res> {
-  _$MonthlyScheduleDtoCopyWithImpl(this._self, this._then);
+class _$MonthlyScheduleLocalDtoCopyWithImpl<$Res>
+    implements $MonthlyScheduleLocalDtoCopyWith<$Res> {
+  _$MonthlyScheduleLocalDtoCopyWithImpl(this._self, this._then);
 
-  final MonthlyScheduleDto _self;
-  final $Res Function(MonthlyScheduleDto) _then;
+  final MonthlyScheduleLocalDto _self;
+  final $Res Function(MonthlyScheduleLocalDto) _then;
 
-/// Create a copy of MonthlyScheduleDto
+/// Create a copy of MonthlyScheduleLocalDto
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? city = null,Object? year = null,Object? month = null,Object? days = null,}) {
   return _then(_self.copyWith(
@@ -72,7 +72,7 @@ as int,days: null == days ? _self.days : days // ignore: cast_nullable_to_non_nu
 as List<DailyScheduleLocalDto>,
   ));
 }
-/// Create a copy of MonthlyScheduleDto
+/// Create a copy of MonthlyScheduleLocalDto
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
@@ -85,8 +85,8 @@ $CityLocalDtoCopyWith<$Res> get city {
 }
 
 
-/// Adds pattern-matching-related methods to [MonthlyScheduleDto].
-extension MonthlyScheduleDtoPatterns on MonthlyScheduleDto {
+/// Adds pattern-matching-related methods to [MonthlyScheduleLocalDto].
+extension MonthlyScheduleLocalDtoPatterns on MonthlyScheduleLocalDto {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -99,10 +99,10 @@ extension MonthlyScheduleDtoPatterns on MonthlyScheduleDto {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _MonthlyScheduleDto value)?  $default,{required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _MonthlyScheduleLocalDto value)?  $default,{required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _MonthlyScheduleDto() when $default != null:
+case _MonthlyScheduleLocalDto() when $default != null:
 return $default(_that);case _:
   return orElse();
 
@@ -121,10 +121,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _MonthlyScheduleDto value)  $default,){
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _MonthlyScheduleLocalDto value)  $default,){
 final _that = this;
 switch (_that) {
-case _MonthlyScheduleDto():
+case _MonthlyScheduleLocalDto():
 return $default(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
@@ -139,10 +139,10 @@ return $default(_that);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _MonthlyScheduleDto value)?  $default,){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _MonthlyScheduleLocalDto value)?  $default,){
 final _that = this;
 switch (_that) {
-case _MonthlyScheduleDto() when $default != null:
+case _MonthlyScheduleLocalDto() when $default != null:
 return $default(_that);case _:
   return null;
 
@@ -162,7 +162,7 @@ return $default(_that);case _:
 
 @optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( CityLocalDto city,  int year,  int month,  List<DailyScheduleLocalDto> days)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _MonthlyScheduleDto() when $default != null:
+case _MonthlyScheduleLocalDto() when $default != null:
 return $default(_that.city,_that.year,_that.month,_that.days);case _:
   return orElse();
 
@@ -183,7 +183,7 @@ return $default(_that.city,_that.year,_that.month,_that.days);case _:
 
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( CityLocalDto city,  int year,  int month,  List<DailyScheduleLocalDto> days)  $default,) {final _that = this;
 switch (_that) {
-case _MonthlyScheduleDto():
+case _MonthlyScheduleLocalDto():
 return $default(_that.city,_that.year,_that.month,_that.days);}
 }
 /// A variant of `when` that fallback to returning `null`
@@ -200,7 +200,7 @@ return $default(_that.city,_that.year,_that.month,_that.days);}
 
 @optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( CityLocalDto city,  int year,  int month,  List<DailyScheduleLocalDto> days)?  $default,) {final _that = this;
 switch (_that) {
-case _MonthlyScheduleDto() when $default != null:
+case _MonthlyScheduleLocalDto() when $default != null:
 return $default(_that.city,_that.year,_that.month,_that.days);case _:
   return null;
 
@@ -212,8 +212,8 @@ return $default(_that.city,_that.year,_that.month,_that.days);case _:
 /// @nodoc
 
 
-class _MonthlyScheduleDto implements MonthlyScheduleDto {
-  const _MonthlyScheduleDto({required this.city, required this.year, required this.month, required final  List<DailyScheduleLocalDto> days}): _days = days;
+class _MonthlyScheduleLocalDto implements MonthlyScheduleLocalDto {
+  const _MonthlyScheduleLocalDto({required this.city, required this.year, required this.month, required final  List<DailyScheduleLocalDto> days}): _days = days;
   
 
 @override final  CityLocalDto city;
@@ -229,17 +229,17 @@ class _MonthlyScheduleDto implements MonthlyScheduleDto {
 }
 
 
-/// Create a copy of MonthlyScheduleDto
+/// Create a copy of MonthlyScheduleLocalDto
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$MonthlyScheduleDtoCopyWith<_MonthlyScheduleDto> get copyWith => __$MonthlyScheduleDtoCopyWithImpl<_MonthlyScheduleDto>(this, _$identity);
+_$MonthlyScheduleLocalDtoCopyWith<_MonthlyScheduleLocalDto> get copyWith => __$MonthlyScheduleLocalDtoCopyWithImpl<_MonthlyScheduleLocalDto>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MonthlyScheduleDto&&(identical(other.city, city) || other.city == city)&&(identical(other.year, year) || other.year == year)&&(identical(other.month, month) || other.month == month)&&const DeepCollectionEquality().equals(other._days, _days));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MonthlyScheduleLocalDto&&(identical(other.city, city) || other.city == city)&&(identical(other.year, year) || other.year == year)&&(identical(other.month, month) || other.month == month)&&const DeepCollectionEquality().equals(other._days, _days));
 }
 
 
@@ -248,15 +248,15 @@ int get hashCode => Object.hash(runtimeType,city,year,month,const DeepCollection
 
 @override
 String toString() {
-  return 'MonthlyScheduleDto(city: $city, year: $year, month: $month, days: $days)';
+  return 'MonthlyScheduleLocalDto(city: $city, year: $year, month: $month, days: $days)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$MonthlyScheduleDtoCopyWith<$Res> implements $MonthlyScheduleDtoCopyWith<$Res> {
-  factory _$MonthlyScheduleDtoCopyWith(_MonthlyScheduleDto value, $Res Function(_MonthlyScheduleDto) _then) = __$MonthlyScheduleDtoCopyWithImpl;
+abstract mixin class _$MonthlyScheduleLocalDtoCopyWith<$Res> implements $MonthlyScheduleLocalDtoCopyWith<$Res> {
+  factory _$MonthlyScheduleLocalDtoCopyWith(_MonthlyScheduleLocalDto value, $Res Function(_MonthlyScheduleLocalDto) _then) = __$MonthlyScheduleLocalDtoCopyWithImpl;
 @override @useResult
 $Res call({
  CityLocalDto city, int year, int month, List<DailyScheduleLocalDto> days
@@ -267,17 +267,17 @@ $Res call({
 
 }
 /// @nodoc
-class __$MonthlyScheduleDtoCopyWithImpl<$Res>
-    implements _$MonthlyScheduleDtoCopyWith<$Res> {
-  __$MonthlyScheduleDtoCopyWithImpl(this._self, this._then);
+class __$MonthlyScheduleLocalDtoCopyWithImpl<$Res>
+    implements _$MonthlyScheduleLocalDtoCopyWith<$Res> {
+  __$MonthlyScheduleLocalDtoCopyWithImpl(this._self, this._then);
 
-  final _MonthlyScheduleDto _self;
-  final $Res Function(_MonthlyScheduleDto) _then;
+  final _MonthlyScheduleLocalDto _self;
+  final $Res Function(_MonthlyScheduleLocalDto) _then;
 
-/// Create a copy of MonthlyScheduleDto
+/// Create a copy of MonthlyScheduleLocalDto
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? city = null,Object? year = null,Object? month = null,Object? days = null,}) {
-  return _then(_MonthlyScheduleDto(
+  return _then(_MonthlyScheduleLocalDto(
 city: null == city ? _self.city : city // ignore: cast_nullable_to_non_nullable
 as CityLocalDto,year: null == year ? _self.year : year // ignore: cast_nullable_to_non_nullable
 as int,month: null == month ? _self.month : month // ignore: cast_nullable_to_non_nullable
@@ -286,7 +286,7 @@ as List<DailyScheduleLocalDto>,
   ));
 }
 
-/// Create a copy of MonthlyScheduleDto
+/// Create a copy of MonthlyScheduleLocalDto
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
