@@ -1,8 +1,7 @@
 import 'package:drift/drift.dart';
 import 'package:shalat_app/data/data.dart';
 
-class ScheduleEntity extends Table {
-  IntColumn get id => integer().autoIncrement()();
+class ScheduleEntity extends Table with TableMixin {
   IntColumn get locationId => integer().references(CityEntity, #id)();
 
   DateTimeColumn get date => dateTime()(); // 2025-12-04 convert to DateTime
@@ -16,4 +15,9 @@ class ScheduleEntity extends Table {
   TextColumn get ashar => text()();
   TextColumn get maghrib => text()();
   TextColumn get isya => text()();
+
+  @override
+  List<Set<Column>> get uniqueKeys => [
+    {locationId, date},
+  ];
 }
