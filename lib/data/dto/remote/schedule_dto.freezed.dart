@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ScheduleDto {
 
- String get tanggal; String get imsak; String get subuh; String get terbit; String get dhuha; String get dzuhur; String get ashar; String get maghrib; String get isya; String get date;
+ String get tanggal; String get imsak; String get subuh; String get terbit; String get dhuha; String get dzuhur; String get ashar; String get maghrib; String get isya;@DateOnlyUtcSerializer() DateTime get date;
 /// Create a copy of ScheduleDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $ScheduleDtoCopyWith<$Res>  {
   factory $ScheduleDtoCopyWith(ScheduleDto value, $Res Function(ScheduleDto) _then) = _$ScheduleDtoCopyWithImpl;
 @useResult
 $Res call({
- String tanggal, String imsak, String subuh, String terbit, String dhuha, String dzuhur, String ashar, String maghrib, String isya, String date
+ String tanggal, String imsak, String subuh, String terbit, String dhuha, String dzuhur, String ashar, String maghrib, String isya,@DateOnlyUtcSerializer() DateTime date
 });
 
 
@@ -77,7 +77,7 @@ as String,ashar: null == ashar ? _self.ashar : ashar // ignore: cast_nullable_to
 as String,maghrib: null == maghrib ? _self.maghrib : maghrib // ignore: cast_nullable_to_non_nullable
 as String,isya: null == isya ? _self.isya : isya // ignore: cast_nullable_to_non_nullable
 as String,date: null == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
-as String,
+as DateTime,
   ));
 }
 
@@ -159,7 +159,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String tanggal,  String imsak,  String subuh,  String terbit,  String dhuha,  String dzuhur,  String ashar,  String maghrib,  String isya,  String date)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String tanggal,  String imsak,  String subuh,  String terbit,  String dhuha,  String dzuhur,  String ashar,  String maghrib,  String isya, @DateOnlyUtcSerializer()  DateTime date)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ScheduleDto() when $default != null:
 return $default(_that.tanggal,_that.imsak,_that.subuh,_that.terbit,_that.dhuha,_that.dzuhur,_that.ashar,_that.maghrib,_that.isya,_that.date);case _:
@@ -180,7 +180,7 @@ return $default(_that.tanggal,_that.imsak,_that.subuh,_that.terbit,_that.dhuha,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String tanggal,  String imsak,  String subuh,  String terbit,  String dhuha,  String dzuhur,  String ashar,  String maghrib,  String isya,  String date)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String tanggal,  String imsak,  String subuh,  String terbit,  String dhuha,  String dzuhur,  String ashar,  String maghrib,  String isya, @DateOnlyUtcSerializer()  DateTime date)  $default,) {final _that = this;
 switch (_that) {
 case _ScheduleDto():
 return $default(_that.tanggal,_that.imsak,_that.subuh,_that.terbit,_that.dhuha,_that.dzuhur,_that.ashar,_that.maghrib,_that.isya,_that.date);}
@@ -197,7 +197,7 @@ return $default(_that.tanggal,_that.imsak,_that.subuh,_that.terbit,_that.dhuha,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String tanggal,  String imsak,  String subuh,  String terbit,  String dhuha,  String dzuhur,  String ashar,  String maghrib,  String isya,  String date)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String tanggal,  String imsak,  String subuh,  String terbit,  String dhuha,  String dzuhur,  String ashar,  String maghrib,  String isya, @DateOnlyUtcSerializer()  DateTime date)?  $default,) {final _that = this;
 switch (_that) {
 case _ScheduleDto() when $default != null:
 return $default(_that.tanggal,_that.imsak,_that.subuh,_that.terbit,_that.dhuha,_that.dzuhur,_that.ashar,_that.maghrib,_that.isya,_that.date);case _:
@@ -212,7 +212,7 @@ return $default(_that.tanggal,_that.imsak,_that.subuh,_that.terbit,_that.dhuha,_
 @JsonSerializable()
 
 class _ScheduleDto implements ScheduleDto {
-  const _ScheduleDto({required this.tanggal, required this.imsak, required this.subuh, required this.terbit, required this.dhuha, required this.dzuhur, required this.ashar, required this.maghrib, required this.isya, required this.date});
+  const _ScheduleDto({required this.tanggal, required this.imsak, required this.subuh, required this.terbit, required this.dhuha, required this.dzuhur, required this.ashar, required this.maghrib, required this.isya, @DateOnlyUtcSerializer() required this.date});
   factory _ScheduleDto.fromJson(Map<String, dynamic> json) => _$ScheduleDtoFromJson(json);
 
 @override final  String tanggal;
@@ -224,7 +224,7 @@ class _ScheduleDto implements ScheduleDto {
 @override final  String ashar;
 @override final  String maghrib;
 @override final  String isya;
-@override final  String date;
+@override@DateOnlyUtcSerializer() final  DateTime date;
 
 /// Create a copy of ScheduleDto
 /// with the given fields replaced by the non-null parameter values.
@@ -259,7 +259,7 @@ abstract mixin class _$ScheduleDtoCopyWith<$Res> implements $ScheduleDtoCopyWith
   factory _$ScheduleDtoCopyWith(_ScheduleDto value, $Res Function(_ScheduleDto) _then) = __$ScheduleDtoCopyWithImpl;
 @override @useResult
 $Res call({
- String tanggal, String imsak, String subuh, String terbit, String dhuha, String dzuhur, String ashar, String maghrib, String isya, String date
+ String tanggal, String imsak, String subuh, String terbit, String dhuha, String dzuhur, String ashar, String maghrib, String isya,@DateOnlyUtcSerializer() DateTime date
 });
 
 
@@ -288,7 +288,7 @@ as String,ashar: null == ashar ? _self.ashar : ashar // ignore: cast_nullable_to
 as String,maghrib: null == maghrib ? _self.maghrib : maghrib // ignore: cast_nullable_to_non_nullable
 as String,isya: null == isya ? _self.isya : isya // ignore: cast_nullable_to_non_nullable
 as String,date: null == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
-as String,
+as DateTime,
   ));
 }
 

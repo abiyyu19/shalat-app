@@ -16,7 +16,7 @@ _ScheduleDto _$ScheduleDtoFromJson(Map<String, dynamic> json) => _ScheduleDto(
   ashar: json['ashar'] as String,
   maghrib: json['maghrib'] as String,
   isya: json['isya'] as String,
-  date: json['date'] as String,
+  date: const DateOnlyUtcSerializer().fromJson(json['date'] as String),
 );
 
 Map<String, dynamic> _$ScheduleDtoToJson(_ScheduleDto instance) =>
@@ -30,5 +30,5 @@ Map<String, dynamic> _$ScheduleDtoToJson(_ScheduleDto instance) =>
       'ashar': instance.ashar,
       'maghrib': instance.maghrib,
       'isya': instance.isya,
-      'date': instance.date,
+      'date': const DateOnlyUtcSerializer().toJson(instance.date),
     };

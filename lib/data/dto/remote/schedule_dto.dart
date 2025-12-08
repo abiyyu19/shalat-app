@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shalat_app/core/core.dart';
+import 'package:shalat_app/data/data.dart';
 
 part 'schedule_dto.freezed.dart';
 part 'schedule_dto.g.dart';
@@ -16,7 +17,7 @@ sealed class ScheduleDto with _$ScheduleDto {
     required final String ashar,
     required final String maghrib,
     required final String isya,
-    required final String date,
+    @DateOnlyUtcSerializer() required final DateTime date,
   }) = _ScheduleDto;
 
   factory ScheduleDto.fromJson(final JSON json) => _$ScheduleDtoFromJson(json);
