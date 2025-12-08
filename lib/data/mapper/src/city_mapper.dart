@@ -6,20 +6,6 @@ import 'package:shalat_app/domain/domain.dart';
 class CityMapper {
   CityMapper._();
 
-  //--- Usage: receive from server via REST API
-
-  static List<CityModel> dtoToModelBatch(final List<CityDto> cityDtoList) =>
-      cityDtoList
-          .map(
-            (cityDto) => dtoToModel(cityDto),
-          )
-          .toList();
-
-  static CityModel dtoToModel(final CityDto cityDto) => CityModel(
-    id: int.parse(cityDto.id),
-    name: cityDto.lokasi,
-  );
-
   //--- Usage: send to server via REST API
 
   static List<CityDto> modelToDtoBatch(final List<CityModel> cityModelList) =>
@@ -39,36 +25,44 @@ class CityMapper {
 
   //--- Usage: select from local database
 
-  static List<CityModel> dataToModelBatch(
+  static List<CityLocalDto> entityDataToLocalDtoBatch(
     final List<CityEntityData> cityEntityDataList,
   ) => cityEntityDataList
       .map(
-        (cityEntityData) => dataToModel(cityEntityData),
+        (cityEntityData) => entityDataToLocalDto(cityEntityData),
       )
       .toList();
 
-  static CityModel dataToModel(final CityEntityData cityEntityData) =>
-      CityModel(
-        id: cityEntityData.id,
-        name: cityEntityData.name,
+  static CityLocalDto entityDataToLocalDto(final CityEntityData entityData) =>
+      CityLocalDto(
+        id: entityData.id,
+        name: entityData.name,
+        region: entityData.region,
       );
 
   //--- Usage: insert to local database
 
-  static List<CityEntityCompanion> modelToCompanionInsertBatch(
-    final List<CityModel> cityModelList,
-  ) => cityModelList
+  //- Local
+
+  static List<CityEntityCompanion> localDtoToCompanionInsertBatch(
+    final List<CityLocalDto> cityLocalDtoList,
+  ) => cityLocalDtoList
       .map(
-        (cityModel) => modelToCompanionInsert(cityModel),
+        (cityLocalDto) => localDtoToCompanionInsert(cityLocalDto),
       )
       .toList();
 
-  static CityEntityCompanion modelToCompanionInsert(
-    final CityModel cityModel,
+  /// Using Local DTO (Internal Database Operation)
+  /// This converter is used when inserting data from internal database
+  static CityEntityCompanion localDtoToCompanionInsert(
+    final CityLocalDto cityLocalDto,
   ) => CityEntityCompanion.insert(
-    id: Value(cityModel.id),
-    name: cityModel.name,
+    id: Value(cityLocalDto.id),
+    name: cityLocalDto.name,
+    region: Value(cityLocalDto.region),
   );
+
+  //- Remote
 
   static List<CityEntityCompanion> dtoToCompanionInsertBatch(
     final List<CityDto> cityDtoList,
@@ -78,6 +72,8 @@ class CityMapper {
       )
       .toList();
 
+  /// Using Dto (Rest API Response)
+  /// This converter is used when inserting data from remote database
   static CityEntityCompanion dtoToCompanionInsert(
     final CityDto cityDto,
   ) => CityEntityCompanion.insert(
@@ -87,20 +83,25 @@ class CityMapper {
 
   //--- Usage: update to local database
 
-  static List<CityEntityData> modelToDataBatch(
-    final List<CityModel> cityModelList,
-  ) => cityModelList
+  //- Local
+  static List<CityEntityData> localDtoToDataBatch(
+    final List<CityLocalDto> cityLocalDtoList,
+  ) => cityLocalDtoList
       .map(
-        (cityModel) => modelToData(cityModel),
+        (cityLocalDto) => localDtoToData(cityLocalDto),
       )
       .toList();
 
-  static CityEntityData modelToData(final CityModel cityModel) =>
+  /// Using Local DTO (Internal Database Operation)
+  /// This converter is used when updating data from internal database
+  static CityEntityData localDtoToData(final CityLocalDto cityLocalDto) =>
       CityEntityData(
-        id: cityModel.id,
-        name: cityModel.name,
+        id: cityLocalDto.id,
+        name: cityLocalDto.name,
+        region: cityLocalDto.region,
       );
 
+  //- Remote
   static List<CityEntityData> dtoToDataBatch(
     final List<CityDto> cityDtoList,
   ) => cityDtoList
@@ -109,6 +110,8 @@ class CityMapper {
       )
       .toList();
 
+  /// Using Dto (Rest API Response)
+  /// This converter is used when updating data from remote database
   static CityEntityData dtoToData(final CityDto cityDto) => CityEntityData(
     id: int.parse(cityDto.id),
     name: cityDto.lokasi,

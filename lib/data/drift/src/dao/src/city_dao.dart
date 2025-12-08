@@ -1,7 +1,6 @@
 import 'package:drift/drift.dart';
 import 'package:shalat_app/core/result/result.dart';
 import 'package:shalat_app/data/data.dart';
-import 'package:shalat_app/domain/models/src/city_model.dart';
 
 part 'city_dao.g.dart';
 
@@ -14,19 +13,19 @@ class CityDao extends DatabaseAccessor<AppDatabase>
   CityDao(super.db);
 
   @override
-  Future<Result<List<CityModel>>> getAllCity() async {
+  Future<Result<List<CityLocalDto>>> getAllCity() async {
     try {
-      final citiesEntity = await select(cityEntity).get();
-      return Result.ok(CityMapper.dataToModelBatch(citiesEntity));
+      final List<CityEntityData> citiesEntity = await select(cityEntity).get();
+      return Result.ok(CityMapper.entityDataToLocalDtoBatch(citiesEntity));
     } catch (e) {
       return Result.error(Exception(e));
     }
   }
 
   @override
-  Future<Result<CityModel?>> getCityById({required int cityId}) async {
+  Future<Result<CityLocalDto?>> getCityById({required int cityId}) async {
     try {
-      final cityEntityData =
+      final CityEntityData? cityEntityData =
           await (select(
                 cityEntity,
               )..where(
@@ -38,25 +37,25 @@ class CityDao extends DatabaseAccessor<AppDatabase>
         return Result.ok(null);
       }
 
-      return Result.ok(CityMapper.dataToModel(cityEntityData));
+      return Result.ok(CityMapper.entityDataToLocalDto(cityEntityData));
     } catch (e) {
       return Result.error(Exception(e));
     }
   }
 
   @override
-  Future<Result<List<CityModel>>> searchCityByQuery({
+  Future<Result<List<CityLocalDto>>> searchCityByQuery({
     required String query,
   }) async {
     try {
-      final citiesEntity =
+      final List<CityEntityData> citiesEntity =
           await (select(
                 cityEntity,
               )..where(
                 (city) => city.name.contains(query),
               ))
               .get();
-      return Result.ok(CityMapper.dataToModelBatch(citiesEntity));
+      return Result.ok(CityMapper.entityDataToLocalDtoBatch(citiesEntity));
     } catch (e) {
       return Result.error(Exception(e));
     }
@@ -64,12 +63,13 @@ class CityDao extends DatabaseAccessor<AppDatabase>
 
   @override
   Future<Result<void>> insertCityBatch({
-    required List<CityModel> cities,
+    required List<CityLocalDto> cities,
   }) async {
     try {
-      final cityCompanionInsertBatch = CityMapper.modelToCompanionInsertBatch(
-        cities,
-      );
+      final cityCompanionInsertBatch =
+          CityMapper.localDtoToCompanionInsertBatch(
+            cities,
+          );
       await batch(
         (batch) => batch.insertAll(cityEntity, cityCompanionInsertBatch),
       );
@@ -80,9 +80,9 @@ class CityDao extends DatabaseAccessor<AppDatabase>
   }
 
   @override
-  Future<Result<void>> insertCity({required CityModel city}) async {
+  Future<Result<void>> insertCity({required CityLocalDto city}) async {
     try {
-      final cityCompanionInsert = CityMapper.modelToCompanionInsert(city);
+      final cityCompanionInsert = CityMapper.localDtoToCompanionInsert(city);
       await into(cityEntity).insert(cityCompanionInsert);
       return Result.ok(null);
     } catch (e) {
@@ -91,9 +91,9 @@ class CityDao extends DatabaseAccessor<AppDatabase>
   }
 
   @override
-  Future<Result<void>> updateCity({required CityModel city}) async {
+  Future<Result<void>> updateCity({required CityLocalDto city}) async {
     try {
-      final cityEntityData = CityMapper.modelToData(city);
+      final CityEntityData cityEntityData = CityMapper.localDtoToData(city);
       await update(cityEntity).replace(cityEntityData);
       return Result.ok(null);
     } catch (e) {
@@ -112,13 +112,12 @@ class CityDao extends DatabaseAccessor<AppDatabase>
   }
 
   @override
-  Future<Result<void>> deleteCity({required CityModel city}) async {
+  Future<Result<void>> deleteCity({required CityLocalDto city}) async {
     try {
-      final cityEntityData = CityMapper.modelToData(city);
       await (delete(
             cityEntity,
           )..where(
-            (city) => city.id.equals(cityEntityData.id),
+            (cityEntityData) => cityEntityData.id.equals(city.id),
           ))
           .go();
       return Result.ok(null);

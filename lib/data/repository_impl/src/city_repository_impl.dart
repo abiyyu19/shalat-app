@@ -16,13 +16,13 @@ class CityRepositoryImpl implements CityRepository {
 
   @override
   Future<Result<List<CityModel>>> getAllCity() async {
-    final Result<List<CityModel>> localRes = await _cityLocal.getAllCity();
+    final Result<List<CityLocalDto>> localRes = await _cityLocal.getAllCity();
 
     // --------------------------------------------------
     // FAILED FLOW: Local storage fetch failed
     // → Fallback to remote
     // --------------------------------------------------
-    if (localRes is Error<List<CityModel>>) {
+    if (localRes is Error<List<CityLocalDto>>) {
       return _refreshCitiesFromRemote();
     }
 
@@ -30,18 +30,26 @@ class CityRepositoryImpl implements CityRepository {
     // SUCCESS FLOW: Successfully retrieved data from local
     // --------------------------------------------------
 
-    final List<CityModel> localCities = (localRes as Ok<List<CityModel>>).value;
+    final List<CityLocalDto> localCitiesDto =
+        (localRes as Ok<List<CityLocalDto>>).value;
 
     // -----------------------------
     // CASE: Local data is non-empty
     // -----------------------------
-    if (localCities.isNotEmpty) {
+    if (localCitiesDto.isNotEmpty) {
       // Refresh the remote data in the background (fire & forget)
       // We intentionally do not await the result here
       unawaited(_refreshCitiesFromRemote());
 
-      // Immediately return the non-empty local data
-      return Result.ok(localCities);
+      try {
+        // Immediately return the non-empty local data
+        final List<CityModel> localCities = localCitiesDto
+            .map((cityDto) => cityDto.toCityModel())
+            .toList();
+        return Result.ok(localCities);
+      } catch (e) {
+        return Result.error(Exception(e));
+      }
     }
 
     // ---------------------------------------------
@@ -73,36 +81,64 @@ class CityRepositoryImpl implements CityRepository {
     // Remote request succeeded
     // -----------------------------
     final List<CityDto> citiesDto = (remoteRes as Ok<List<CityDto>>).value;
-    final List<CityModel> citiesModel = CityMapper.dtoToModelBatch(citiesDto);
 
-    // Save data to local storage only when the list is not empty
-    if (citiesDto.isNotEmpty) {
-      unawaited(_cityLocal.insertCityBatch(cities: citiesModel));
+    try {
+      final List<CityLocalDto> citiesLocalDto = citiesDto
+          .map((city) => city.toCityLocalDto())
+          .toList();
+
+      // Save data to local storage only when the list is not empty
+      if (citiesDto.isNotEmpty) {
+        unawaited(_cityLocal.insertCityBatch(cities: citiesLocalDto));
+      }
+
+      final List<CityModel> citiesModel = citiesLocalDto
+          .map((city) => city.toCityModel())
+          .toList();
+
+      // Return the data (empty or not)
+      return Result.ok(citiesModel);
+    } catch (e) {
+      return Result.error(Exception(e));
     }
-
-    // Return the data (empty or not)
-    return Result.ok(citiesModel);
   }
 
   @override
   Future<Result<List<CityModel>>> searchCityByQuery({
     required String query,
   }) async {
-    final Result<List<CityModel>> localRes = await _cityLocal.searchCityByQuery(
-      query: query,
-    );
+    final Result<List<CityLocalDto>> localRes = await _cityLocal
+        .searchCityByQuery(
+          query: query,
+        );
 
     // Local search failed → fallback to remote
-    if (localRes is Error<List<CityModel>>) {
+    if (localRes is Error<List<CityLocalDto>>) {
       return _searchFromRemote(query);
     }
 
-    final List<CityModel> localCities = (localRes as Ok<List<CityModel>>).value;
+    final List<CityLocalDto> localCitiesDto =
+        (localRes as Ok<List<CityLocalDto>>).value;
 
-    // Local contains results → return immediately and refresh remote async
-    if (localCities.isNotEmpty) {
+    // -----------------------------
+    // CASE: Local data is non-empty
+    // -----------------------------
+    if (localCitiesDto.isNotEmpty) {
+      // Refresh the remote data in the background (fire & forget)
+      // We intentionally do not await the result here
       unawaited(_searchFromRemote(query));
-      return Result.ok(localCities);
+
+      try {
+        final List<CityModel> localCities = localCitiesDto
+            .map((city) => city.toCityModel())
+            .toList();
+
+        // Local contains results
+        // → return immediately and refresh remote async
+        return Result.ok(localCities);
+      } catch (e) {
+        return Result.error(Exception(e));
+      }
     }
 
     // Local empty → try remote
@@ -117,34 +153,51 @@ class CityRepositoryImpl implements CityRepository {
       return Result.error(remoteRes.error);
     }
 
-    final citiesDto = (remoteRes as Ok<List<CityDto>>).value;
-    final citiesModel = CityMapper.dtoToModelBatch(citiesDto);
+    final List<CityDto> citiesDto = (remoteRes as Ok<List<CityDto>>).value;
 
-    // Save to local only if remote returns data
-    if (citiesModel.isNotEmpty) {
-      unawaited(_cityLocal.insertCityBatch(cities: citiesModel));
+    try {
+      final List<CityLocalDto> citiesLocalDto = citiesDto
+          .map((city) => city.toCityLocalDto())
+          .toList();
+
+      // Save to local only if remote returns data
+      if (citiesLocalDto.isNotEmpty) {
+        unawaited(_cityLocal.insertCityBatch(cities: citiesLocalDto));
+      }
+
+      final List<CityModel> citiesModel = citiesLocalDto
+          .map((city) => city.toCityModel())
+          .toList();
+
+      return Result.ok(citiesModel);
+    } catch (e) {
+      return Result.error(Exception(e));
     }
-
-    return Result.ok(citiesModel);
   }
 
   @override
   Future<Result<CityModel?>> getCityById({required int cityId}) async {
-    final Result<CityModel?> localRes = await _cityLocal.getCityById(
+    final Result<CityLocalDto?> localRes = await _cityLocal.getCityById(
       cityId: cityId,
     );
 
     // Local failed → fallback to remote
-    if (localRes is Error<CityModel?>) {
+    if (localRes is Error<CityLocalDto?>) {
       return _getCityByIdFromRemote(cityId);
     }
 
-    final CityModel? localCity = (localRes as Ok<CityModel?>).value;
+    final CityLocalDto? localCity = (localRes as Ok<CityLocalDto?>).value;
 
     // Local found the data → return fast, refresh in background
     if (localCity != null) {
       unawaited(_getCityByIdFromRemote(cityId));
-      return Result.ok(localCity);
+
+      try {
+        final CityModel model = localCity.toCityModel();
+        return Result.ok(model);
+      } catch (e) {
+        return Result.error(Exception(e));
+      }
     }
 
     // Local returned null → try remote
@@ -168,8 +221,15 @@ class CityRepositoryImpl implements CityRepository {
     }
 
     // Convert & save to local
-    final CityModel model = CityMapper.dtoToModel(dto);
-    unawaited(_cityLocal.insertCity(city: model));
-    return Result.ok(model);
+
+    try {
+      final CityLocalDto localDto = dto.toCityLocalDto();
+      unawaited(_cityLocal.insertCity(city: localDto));
+
+      final CityModel model = localDto.toCityModel();
+      return Result.ok(model);
+    } catch (e) {
+      return Result.error(Exception(e));
+    }
   }
 }
