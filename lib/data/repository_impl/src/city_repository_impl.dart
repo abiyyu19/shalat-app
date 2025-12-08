@@ -39,7 +39,10 @@ class CityRepositoryImpl implements CityRepository {
     if (localCitiesDto.isNotEmpty) {
       // Refresh the remote data in the background (fire & forget)
       // We intentionally do not await the result here
-      unawaited(_refreshCitiesFromRemote());
+      Helper.fireAndForgetWithLog(
+        _refreshCitiesFromRemote(),
+        operation: 'Refresh cities from remote',
+      );
 
       try {
         // Immediately return the non-empty local data
@@ -56,7 +59,7 @@ class CityRepositoryImpl implements CityRepository {
     // CASE: Local data is empty
     // → Fetch the latest data from remote
     // ---------------------------------------------
-    return _refreshCitiesFromRemote();
+    return _refreshCitiesFromRemote(isLocalEmpty: true);
   }
 
   /// Helper method for fetching city data from the remote API and updating local storage.
@@ -66,7 +69,9 @@ class CityRepositoryImpl implements CityRepository {
   /// - Remote success:
   ///     • empty list  → return the empty data as-is
   ///     • non-empty   → save to local storage asynchronously, then return the data
-  Future<Result<List<CityModel>>> _refreshCitiesFromRemote() async {
+  Future<Result<List<CityModel>>> _refreshCitiesFromRemote({
+    final bool isLocalEmpty = false,
+  }) async {
     final Result<List<CityDto>> remoteRes = await _cityRemote.getAllCity();
 
     // -----------------------------
@@ -89,7 +94,17 @@ class CityRepositoryImpl implements CityRepository {
 
       // Save data to local storage only when the list is not empty
       if (citiesDto.isNotEmpty) {
-        unawaited(_cityLocal.insertCityBatch(cities: citiesLocalDto));
+        if (isLocalEmpty) {
+          Helper.fireAndForgetWithLog(
+            _cityLocal.insertCityBatch(cities: citiesLocalDto),
+            operation: 'Insert cities to local storage',
+          );
+        } else {
+          Helper.fireAndForgetWithLog(
+            _cityLocal.replaceCityBatch(cities: citiesLocalDto),
+            operation: 'Replace cities in local storage',
+          );
+        }
       }
 
       final List<CityModel> citiesModel = citiesLocalDto
@@ -126,7 +141,10 @@ class CityRepositoryImpl implements CityRepository {
     if (localCitiesDto.isNotEmpty) {
       // Refresh the remote data in the background (fire & forget)
       // We intentionally do not await the result here
-      unawaited(_searchFromRemote(query));
+      Helper.fireAndForgetWithLog(
+        _searchFromRemote(query),
+        operation: 'Search cities from remote',
+      );
 
       try {
         final List<CityModel> localCities = localCitiesDto
@@ -162,7 +180,10 @@ class CityRepositoryImpl implements CityRepository {
 
       // Save to local only if remote returns data
       if (citiesLocalDto.isNotEmpty) {
-        unawaited(_cityLocal.insertCityBatch(cities: citiesLocalDto));
+        Helper.fireAndForgetWithLog(
+          _cityLocal.insertCityBatch(cities: citiesLocalDto),
+          operation: 'Insert cities to local storage',
+        );
       }
 
       final List<CityModel> citiesModel = citiesLocalDto
@@ -190,7 +211,10 @@ class CityRepositoryImpl implements CityRepository {
 
     // Local found the data → return fast, refresh in background
     if (localCity != null) {
-      unawaited(_getCityByIdFromRemote(cityId));
+      Helper.fireAndForgetWithLog(
+        _getCityByIdFromRemote(cityId),
+        operation: 'Get city by id from remote',
+      );
 
       try {
         final CityModel model = localCity.toCityModel();
@@ -224,7 +248,10 @@ class CityRepositoryImpl implements CityRepository {
 
     try {
       final CityLocalDto localDto = dto.toCityLocalDto();
-      unawaited(_cityLocal.insertCity(city: localDto));
+      Helper.fireAndForgetWithLog(
+        _cityLocal.insertCity(city: localDto),
+        operation: 'Insert city to local storage',
+      );
 
       final CityModel model = localDto.toCityModel();
       return Result.ok(model);

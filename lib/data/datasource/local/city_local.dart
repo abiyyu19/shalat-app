@@ -12,6 +12,9 @@ abstract interface class CityLocal {
   Future<Result<void>> insertCityBatch({
     required final List<CityLocalDto> cities,
   });
+  Future<Result<void>> replaceCityBatch({
+    required final List<CityLocalDto> cities,
+  });
   Future<Result<void>> updateCity({required final CityLocalDto city});
 
   Future<Result<void>> deleteCity({required final CityLocalDto city});

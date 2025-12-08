@@ -71,8 +71,31 @@ class CityDao extends DatabaseAccessor<AppDatabase>
             cities,
           );
       await batch(
-        (batch) => batch.insertAll(cityEntity, cityCompanionInsertBatch),
+        (batch) => batch.insertAllOnConflictUpdate(
+          cityEntity,
+          cityCompanionInsertBatch,
+        ),
       );
+      return Result.ok(null);
+    } catch (e) {
+      return Result.error(Exception(e));
+    }
+  }
+
+  @override
+  Future<Result<void>> replaceCityBatch({
+    required List<CityLocalDto> cities,
+  }) async {
+    try {
+      final deleteRes = await deleteAllCity();
+      if (deleteRes is Error<void>) {
+        return Result.error(deleteRes.error);
+      }
+      final insertRes = await insertCityBatch(cities: cities);
+      if (insertRes is Error<void>) {
+        return Result.error(insertRes.error);
+      }
+
       return Result.ok(null);
     } catch (e) {
       return Result.error(Exception(e));
@@ -83,7 +106,7 @@ class CityDao extends DatabaseAccessor<AppDatabase>
   Future<Result<void>> insertCity({required CityLocalDto city}) async {
     try {
       final cityCompanionInsert = CityMapper.localDtoToCompanionInsert(city);
-      await into(cityEntity).insert(cityCompanionInsert);
+      await into(cityEntity).insertOnConflictUpdate(cityCompanionInsert);
       return Result.ok(null);
     } catch (e) {
       return Result.error(Exception(e));
