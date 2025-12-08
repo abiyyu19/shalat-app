@@ -7,5 +7,6 @@ sealed class CityModel with _$CityModel {
   const factory CityModel({
     required final int id,
     required final String name,
+    final String? region,
   }) = _CityModel;
 }

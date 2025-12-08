@@ -14,7 +14,9 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$DailyScheduleModel {
 
- CityModel get city; ScheduleModel get schedule;
+ CityModel get city; DateTime get date;// 2025-12-04
+ String get formattedDate;// "Kamis, 04/12/2025"
+ String get imsak; String get subuh; String get terbit; String get dhuha; String get dzuhur; String get ashar; String get maghrib; String get isya;
 /// Create a copy of DailyScheduleModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +27,16 @@ $DailyScheduleModelCopyWith<DailyScheduleModel> get copyWith => _$DailyScheduleM
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DailyScheduleModel&&(identical(other.city, city) || other.city == city)&&(identical(other.schedule, schedule) || other.schedule == schedule));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DailyScheduleModel&&(identical(other.city, city) || other.city == city)&&(identical(other.date, date) || other.date == date)&&(identical(other.formattedDate, formattedDate) || other.formattedDate == formattedDate)&&(identical(other.imsak, imsak) || other.imsak == imsak)&&(identical(other.subuh, subuh) || other.subuh == subuh)&&(identical(other.terbit, terbit) || other.terbit == terbit)&&(identical(other.dhuha, dhuha) || other.dhuha == dhuha)&&(identical(other.dzuhur, dzuhur) || other.dzuhur == dzuhur)&&(identical(other.ashar, ashar) || other.ashar == ashar)&&(identical(other.maghrib, maghrib) || other.maghrib == maghrib)&&(identical(other.isya, isya) || other.isya == isya));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,city,schedule);
+int get hashCode => Object.hash(runtimeType,city,date,formattedDate,imsak,subuh,terbit,dhuha,dzuhur,ashar,maghrib,isya);
 
 @override
 String toString() {
-  return 'DailyScheduleModel(city: $city, schedule: $schedule)';
+  return 'DailyScheduleModel(city: $city, date: $date, formattedDate: $formattedDate, imsak: $imsak, subuh: $subuh, terbit: $terbit, dhuha: $dhuha, dzuhur: $dzuhur, ashar: $ashar, maghrib: $maghrib, isya: $isya)';
 }
 
 
@@ -45,11 +47,11 @@ abstract mixin class $DailyScheduleModelCopyWith<$Res>  {
   factory $DailyScheduleModelCopyWith(DailyScheduleModel value, $Res Function(DailyScheduleModel) _then) = _$DailyScheduleModelCopyWithImpl;
 @useResult
 $Res call({
- CityModel city, ScheduleModel schedule
+ CityModel city, DateTime date, String formattedDate, String imsak, String subuh, String terbit, String dhuha, String dzuhur, String ashar, String maghrib, String isya
 });
 
 
-$CityModelCopyWith<$Res> get city;$ScheduleModelCopyWith<$Res> get schedule;
+$CityModelCopyWith<$Res> get city;
 
 }
 /// @nodoc
@@ -62,11 +64,20 @@ class _$DailyScheduleModelCopyWithImpl<$Res>
 
 /// Create a copy of DailyScheduleModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? city = null,Object? schedule = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? city = null,Object? date = null,Object? formattedDate = null,Object? imsak = null,Object? subuh = null,Object? terbit = null,Object? dhuha = null,Object? dzuhur = null,Object? ashar = null,Object? maghrib = null,Object? isya = null,}) {
   return _then(_self.copyWith(
 city: null == city ? _self.city : city // ignore: cast_nullable_to_non_nullable
-as CityModel,schedule: null == schedule ? _self.schedule : schedule // ignore: cast_nullable_to_non_nullable
-as ScheduleModel,
+as CityModel,date: null == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
+as DateTime,formattedDate: null == formattedDate ? _self.formattedDate : formattedDate // ignore: cast_nullable_to_non_nullable
+as String,imsak: null == imsak ? _self.imsak : imsak // ignore: cast_nullable_to_non_nullable
+as String,subuh: null == subuh ? _self.subuh : subuh // ignore: cast_nullable_to_non_nullable
+as String,terbit: null == terbit ? _self.terbit : terbit // ignore: cast_nullable_to_non_nullable
+as String,dhuha: null == dhuha ? _self.dhuha : dhuha // ignore: cast_nullable_to_non_nullable
+as String,dzuhur: null == dzuhur ? _self.dzuhur : dzuhur // ignore: cast_nullable_to_non_nullable
+as String,ashar: null == ashar ? _self.ashar : ashar // ignore: cast_nullable_to_non_nullable
+as String,maghrib: null == maghrib ? _self.maghrib : maghrib // ignore: cast_nullable_to_non_nullable
+as String,isya: null == isya ? _self.isya : isya // ignore: cast_nullable_to_non_nullable
+as String,
   ));
 }
 /// Create a copy of DailyScheduleModel
@@ -77,15 +88,6 @@ $CityModelCopyWith<$Res> get city {
   
   return $CityModelCopyWith<$Res>(_self.city, (value) {
     return _then(_self.copyWith(city: value));
-  });
-}/// Create a copy of DailyScheduleModel
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$ScheduleModelCopyWith<$Res> get schedule {
-  
-  return $ScheduleModelCopyWith<$Res>(_self.schedule, (value) {
-    return _then(_self.copyWith(schedule: value));
   });
 }
 }
@@ -166,10 +168,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( CityModel city,  ScheduleModel schedule)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( CityModel city,  DateTime date,  String formattedDate,  String imsak,  String subuh,  String terbit,  String dhuha,  String dzuhur,  String ashar,  String maghrib,  String isya)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _DailyScheduleModel() when $default != null:
-return $default(_that.city,_that.schedule);case _:
+return $default(_that.city,_that.date,_that.formattedDate,_that.imsak,_that.subuh,_that.terbit,_that.dhuha,_that.dzuhur,_that.ashar,_that.maghrib,_that.isya);case _:
   return orElse();
 
 }
@@ -187,10 +189,10 @@ return $default(_that.city,_that.schedule);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( CityModel city,  ScheduleModel schedule)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( CityModel city,  DateTime date,  String formattedDate,  String imsak,  String subuh,  String terbit,  String dhuha,  String dzuhur,  String ashar,  String maghrib,  String isya)  $default,) {final _that = this;
 switch (_that) {
 case _DailyScheduleModel():
-return $default(_that.city,_that.schedule);}
+return $default(_that.city,_that.date,_that.formattedDate,_that.imsak,_that.subuh,_that.terbit,_that.dhuha,_that.dzuhur,_that.ashar,_that.maghrib,_that.isya);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -204,10 +206,10 @@ return $default(_that.city,_that.schedule);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( CityModel city,  ScheduleModel schedule)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( CityModel city,  DateTime date,  String formattedDate,  String imsak,  String subuh,  String terbit,  String dhuha,  String dzuhur,  String ashar,  String maghrib,  String isya)?  $default,) {final _that = this;
 switch (_that) {
 case _DailyScheduleModel() when $default != null:
-return $default(_that.city,_that.schedule);case _:
+return $default(_that.city,_that.date,_that.formattedDate,_that.imsak,_that.subuh,_that.terbit,_that.dhuha,_that.dzuhur,_that.ashar,_that.maghrib,_that.isya);case _:
   return null;
 
 }
@@ -219,11 +221,22 @@ return $default(_that.city,_that.schedule);case _:
 
 
 class _DailyScheduleModel implements DailyScheduleModel {
-  const _DailyScheduleModel({required this.city, required this.schedule});
+  const _DailyScheduleModel({required this.city, required this.date, required this.formattedDate, required this.imsak, required this.subuh, required this.terbit, required this.dhuha, required this.dzuhur, required this.ashar, required this.maghrib, required this.isya});
   
 
 @override final  CityModel city;
-@override final  ScheduleModel schedule;
+@override final  DateTime date;
+// 2025-12-04
+@override final  String formattedDate;
+// "Kamis, 04/12/2025"
+@override final  String imsak;
+@override final  String subuh;
+@override final  String terbit;
+@override final  String dhuha;
+@override final  String dzuhur;
+@override final  String ashar;
+@override final  String maghrib;
+@override final  String isya;
 
 /// Create a copy of DailyScheduleModel
 /// with the given fields replaced by the non-null parameter values.
@@ -235,16 +248,16 @@ _$DailyScheduleModelCopyWith<_DailyScheduleModel> get copyWith => __$DailySchedu
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DailyScheduleModel&&(identical(other.city, city) || other.city == city)&&(identical(other.schedule, schedule) || other.schedule == schedule));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DailyScheduleModel&&(identical(other.city, city) || other.city == city)&&(identical(other.date, date) || other.date == date)&&(identical(other.formattedDate, formattedDate) || other.formattedDate == formattedDate)&&(identical(other.imsak, imsak) || other.imsak == imsak)&&(identical(other.subuh, subuh) || other.subuh == subuh)&&(identical(other.terbit, terbit) || other.terbit == terbit)&&(identical(other.dhuha, dhuha) || other.dhuha == dhuha)&&(identical(other.dzuhur, dzuhur) || other.dzuhur == dzuhur)&&(identical(other.ashar, ashar) || other.ashar == ashar)&&(identical(other.maghrib, maghrib) || other.maghrib == maghrib)&&(identical(other.isya, isya) || other.isya == isya));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,city,schedule);
+int get hashCode => Object.hash(runtimeType,city,date,formattedDate,imsak,subuh,terbit,dhuha,dzuhur,ashar,maghrib,isya);
 
 @override
 String toString() {
-  return 'DailyScheduleModel(city: $city, schedule: $schedule)';
+  return 'DailyScheduleModel(city: $city, date: $date, formattedDate: $formattedDate, imsak: $imsak, subuh: $subuh, terbit: $terbit, dhuha: $dhuha, dzuhur: $dzuhur, ashar: $ashar, maghrib: $maghrib, isya: $isya)';
 }
 
 
@@ -255,11 +268,11 @@ abstract mixin class _$DailyScheduleModelCopyWith<$Res> implements $DailySchedul
   factory _$DailyScheduleModelCopyWith(_DailyScheduleModel value, $Res Function(_DailyScheduleModel) _then) = __$DailyScheduleModelCopyWithImpl;
 @override @useResult
 $Res call({
- CityModel city, ScheduleModel schedule
+ CityModel city, DateTime date, String formattedDate, String imsak, String subuh, String terbit, String dhuha, String dzuhur, String ashar, String maghrib, String isya
 });
 
 
-@override $CityModelCopyWith<$Res> get city;@override $ScheduleModelCopyWith<$Res> get schedule;
+@override $CityModelCopyWith<$Res> get city;
 
 }
 /// @nodoc
@@ -272,11 +285,20 @@ class __$DailyScheduleModelCopyWithImpl<$Res>
 
 /// Create a copy of DailyScheduleModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? city = null,Object? schedule = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? city = null,Object? date = null,Object? formattedDate = null,Object? imsak = null,Object? subuh = null,Object? terbit = null,Object? dhuha = null,Object? dzuhur = null,Object? ashar = null,Object? maghrib = null,Object? isya = null,}) {
   return _then(_DailyScheduleModel(
 city: null == city ? _self.city : city // ignore: cast_nullable_to_non_nullable
-as CityModel,schedule: null == schedule ? _self.schedule : schedule // ignore: cast_nullable_to_non_nullable
-as ScheduleModel,
+as CityModel,date: null == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
+as DateTime,formattedDate: null == formattedDate ? _self.formattedDate : formattedDate // ignore: cast_nullable_to_non_nullable
+as String,imsak: null == imsak ? _self.imsak : imsak // ignore: cast_nullable_to_non_nullable
+as String,subuh: null == subuh ? _self.subuh : subuh // ignore: cast_nullable_to_non_nullable
+as String,terbit: null == terbit ? _self.terbit : terbit // ignore: cast_nullable_to_non_nullable
+as String,dhuha: null == dhuha ? _self.dhuha : dhuha // ignore: cast_nullable_to_non_nullable
+as String,dzuhur: null == dzuhur ? _self.dzuhur : dzuhur // ignore: cast_nullable_to_non_nullable
+as String,ashar: null == ashar ? _self.ashar : ashar // ignore: cast_nullable_to_non_nullable
+as String,maghrib: null == maghrib ? _self.maghrib : maghrib // ignore: cast_nullable_to_non_nullable
+as String,isya: null == isya ? _self.isya : isya // ignore: cast_nullable_to_non_nullable
+as String,
   ));
 }
 
@@ -288,15 +310,6 @@ $CityModelCopyWith<$Res> get city {
   
   return $CityModelCopyWith<$Res>(_self.city, (value) {
     return _then(_self.copyWith(city: value));
-  });
-}/// Create a copy of DailyScheduleModel
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$ScheduleModelCopyWith<$Res> get schedule {
-  
-  return $ScheduleModelCopyWith<$Res>(_self.schedule, (value) {
-    return _then(_self.copyWith(schedule: value));
   });
 }
 }

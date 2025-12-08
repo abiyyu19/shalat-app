@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$CityModel {
 
- int get id; String get name;
+ int get id; String get name; String? get region;
 /// Create a copy of CityModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $CityModelCopyWith<CityModel> get copyWith => _$CityModelCopyWithImpl<CityModel>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CityModel&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CityModel&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.region, region) || other.region == region));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,name);
+int get hashCode => Object.hash(runtimeType,id,name,region);
 
 @override
 String toString() {
-  return 'CityModel(id: $id, name: $name)';
+  return 'CityModel(id: $id, name: $name, region: $region)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $CityModelCopyWith<$Res>  {
   factory $CityModelCopyWith(CityModel value, $Res Function(CityModel) _then) = _$CityModelCopyWithImpl;
 @useResult
 $Res call({
- int id, String name
+ int id, String name, String? region
 });
 
 
@@ -62,11 +62,12 @@ class _$CityModelCopyWithImpl<$Res>
 
 /// Create a copy of CityModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? region = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,
+as String,region: freezed == region ? _self.region : region // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 
@@ -148,10 +149,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String name)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String name,  String? region)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CityModel() when $default != null:
-return $default(_that.id,_that.name);case _:
+return $default(_that.id,_that.name,_that.region);case _:
   return orElse();
 
 }
@@ -169,10 +170,10 @@ return $default(_that.id,_that.name);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String name)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String name,  String? region)  $default,) {final _that = this;
 switch (_that) {
 case _CityModel():
-return $default(_that.id,_that.name);}
+return $default(_that.id,_that.name,_that.region);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -186,10 +187,10 @@ return $default(_that.id,_that.name);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String name)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String name,  String? region)?  $default,) {final _that = this;
 switch (_that) {
 case _CityModel() when $default != null:
-return $default(_that.id,_that.name);case _:
+return $default(_that.id,_that.name,_that.region);case _:
   return null;
 
 }
@@ -201,11 +202,12 @@ return $default(_that.id,_that.name);case _:
 
 
 class _CityModel implements CityModel {
-  const _CityModel({required this.id, required this.name});
+  const _CityModel({required this.id, required this.name, this.region});
   
 
 @override final  int id;
 @override final  String name;
+@override final  String? region;
 
 /// Create a copy of CityModel
 /// with the given fields replaced by the non-null parameter values.
@@ -217,16 +219,16 @@ _$CityModelCopyWith<_CityModel> get copyWith => __$CityModelCopyWithImpl<_CityMo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CityModel&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CityModel&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.region, region) || other.region == region));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,name);
+int get hashCode => Object.hash(runtimeType,id,name,region);
 
 @override
 String toString() {
-  return 'CityModel(id: $id, name: $name)';
+  return 'CityModel(id: $id, name: $name, region: $region)';
 }
 
 
@@ -237,7 +239,7 @@ abstract mixin class _$CityModelCopyWith<$Res> implements $CityModelCopyWith<$Re
   factory _$CityModelCopyWith(_CityModel value, $Res Function(_CityModel) _then) = __$CityModelCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String name
+ int id, String name, String? region
 });
 
 
@@ -254,11 +256,12 @@ class __$CityModelCopyWithImpl<$Res>
 
 /// Create a copy of CityModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? region = freezed,}) {
   return _then(_CityModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,
+as String,region: freezed == region ? _self.region : region // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 

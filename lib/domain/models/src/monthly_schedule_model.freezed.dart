@@ -14,7 +14,8 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$MonthlyScheduleModel {
 
- CityModel get city; List<ScheduleModel> get schedule;
+ CityModel get city; int get year; int get month;// 1-12
+ List<DailyScheduleModel> get days;
 /// Create a copy of MonthlyScheduleModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +26,16 @@ $MonthlyScheduleModelCopyWith<MonthlyScheduleModel> get copyWith => _$MonthlySch
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MonthlyScheduleModel&&(identical(other.city, city) || other.city == city)&&const DeepCollectionEquality().equals(other.schedule, schedule));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MonthlyScheduleModel&&(identical(other.city, city) || other.city == city)&&(identical(other.year, year) || other.year == year)&&(identical(other.month, month) || other.month == month)&&const DeepCollectionEquality().equals(other.days, days));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,city,const DeepCollectionEquality().hash(schedule));
+int get hashCode => Object.hash(runtimeType,city,year,month,const DeepCollectionEquality().hash(days));
 
 @override
 String toString() {
-  return 'MonthlyScheduleModel(city: $city, schedule: $schedule)';
+  return 'MonthlyScheduleModel(city: $city, year: $year, month: $month, days: $days)';
 }
 
 
@@ -45,7 +46,7 @@ abstract mixin class $MonthlyScheduleModelCopyWith<$Res>  {
   factory $MonthlyScheduleModelCopyWith(MonthlyScheduleModel value, $Res Function(MonthlyScheduleModel) _then) = _$MonthlyScheduleModelCopyWithImpl;
 @useResult
 $Res call({
- CityModel city, List<ScheduleModel> schedule
+ CityModel city, int year, int month, List<DailyScheduleModel> days
 });
 
 
@@ -62,11 +63,13 @@ class _$MonthlyScheduleModelCopyWithImpl<$Res>
 
 /// Create a copy of MonthlyScheduleModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? city = null,Object? schedule = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? city = null,Object? year = null,Object? month = null,Object? days = null,}) {
   return _then(_self.copyWith(
 city: null == city ? _self.city : city // ignore: cast_nullable_to_non_nullable
-as CityModel,schedule: null == schedule ? _self.schedule : schedule // ignore: cast_nullable_to_non_nullable
-as List<ScheduleModel>,
+as CityModel,year: null == year ? _self.year : year // ignore: cast_nullable_to_non_nullable
+as int,month: null == month ? _self.month : month // ignore: cast_nullable_to_non_nullable
+as int,days: null == days ? _self.days : days // ignore: cast_nullable_to_non_nullable
+as List<DailyScheduleModel>,
   ));
 }
 /// Create a copy of MonthlyScheduleModel
@@ -157,10 +160,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( CityModel city,  List<ScheduleModel> schedule)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( CityModel city,  int year,  int month,  List<DailyScheduleModel> days)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _MonthlyScheduleModel() when $default != null:
-return $default(_that.city,_that.schedule);case _:
+return $default(_that.city,_that.year,_that.month,_that.days);case _:
   return orElse();
 
 }
@@ -178,10 +181,10 @@ return $default(_that.city,_that.schedule);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( CityModel city,  List<ScheduleModel> schedule)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( CityModel city,  int year,  int month,  List<DailyScheduleModel> days)  $default,) {final _that = this;
 switch (_that) {
 case _MonthlyScheduleModel():
-return $default(_that.city,_that.schedule);}
+return $default(_that.city,_that.year,_that.month,_that.days);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -195,10 +198,10 @@ return $default(_that.city,_that.schedule);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( CityModel city,  List<ScheduleModel> schedule)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( CityModel city,  int year,  int month,  List<DailyScheduleModel> days)?  $default,) {final _that = this;
 switch (_that) {
 case _MonthlyScheduleModel() when $default != null:
-return $default(_that.city,_that.schedule);case _:
+return $default(_that.city,_that.year,_that.month,_that.days);case _:
   return null;
 
 }
@@ -210,15 +213,19 @@ return $default(_that.city,_that.schedule);case _:
 
 
 class _MonthlyScheduleModel implements MonthlyScheduleModel {
-  const _MonthlyScheduleModel({required this.city, required final  List<ScheduleModel> schedule}): _schedule = schedule;
+  const _MonthlyScheduleModel({required this.city, required this.year, required this.month, required final  List<DailyScheduleModel> days}): _days = days;
   
 
 @override final  CityModel city;
- final  List<ScheduleModel> _schedule;
-@override List<ScheduleModel> get schedule {
-  if (_schedule is EqualUnmodifiableListView) return _schedule;
+@override final  int year;
+@override final  int month;
+// 1-12
+ final  List<DailyScheduleModel> _days;
+// 1-12
+@override List<DailyScheduleModel> get days {
+  if (_days is EqualUnmodifiableListView) return _days;
   // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_schedule);
+  return EqualUnmodifiableListView(_days);
 }
 
 
@@ -232,16 +239,16 @@ _$MonthlyScheduleModelCopyWith<_MonthlyScheduleModel> get copyWith => __$Monthly
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MonthlyScheduleModel&&(identical(other.city, city) || other.city == city)&&const DeepCollectionEquality().equals(other._schedule, _schedule));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MonthlyScheduleModel&&(identical(other.city, city) || other.city == city)&&(identical(other.year, year) || other.year == year)&&(identical(other.month, month) || other.month == month)&&const DeepCollectionEquality().equals(other._days, _days));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,city,const DeepCollectionEquality().hash(_schedule));
+int get hashCode => Object.hash(runtimeType,city,year,month,const DeepCollectionEquality().hash(_days));
 
 @override
 String toString() {
-  return 'MonthlyScheduleModel(city: $city, schedule: $schedule)';
+  return 'MonthlyScheduleModel(city: $city, year: $year, month: $month, days: $days)';
 }
 
 
@@ -252,7 +259,7 @@ abstract mixin class _$MonthlyScheduleModelCopyWith<$Res> implements $MonthlySch
   factory _$MonthlyScheduleModelCopyWith(_MonthlyScheduleModel value, $Res Function(_MonthlyScheduleModel) _then) = __$MonthlyScheduleModelCopyWithImpl;
 @override @useResult
 $Res call({
- CityModel city, List<ScheduleModel> schedule
+ CityModel city, int year, int month, List<DailyScheduleModel> days
 });
 
 
@@ -269,11 +276,13 @@ class __$MonthlyScheduleModelCopyWithImpl<$Res>
 
 /// Create a copy of MonthlyScheduleModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? city = null,Object? schedule = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? city = null,Object? year = null,Object? month = null,Object? days = null,}) {
   return _then(_MonthlyScheduleModel(
 city: null == city ? _self.city : city // ignore: cast_nullable_to_non_nullable
-as CityModel,schedule: null == schedule ? _self._schedule : schedule // ignore: cast_nullable_to_non_nullable
-as List<ScheduleModel>,
+as CityModel,year: null == year ? _self.year : year // ignore: cast_nullable_to_non_nullable
+as int,month: null == month ? _self.month : month // ignore: cast_nullable_to_non_nullable
+as int,days: null == days ? _self._days : days // ignore: cast_nullable_to_non_nullable
+as List<DailyScheduleModel>,
   ));
 }
 
