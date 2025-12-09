@@ -8,7 +8,7 @@ part 'monthly_schedule_dto.g.dart';
 @freezed
 sealed class MonthlyScheduleDto with _$MonthlyScheduleDto {
   const factory MonthlyScheduleDto({
-    required final int id,
+    required final int id, // city id
     required final String lokasi,
     required final String daerah,
     required final List<ScheduleDto> jadwal,
@@ -54,4 +54,40 @@ sealed class MonthlyScheduleDto with _$MonthlyScheduleDto {
 //             },
 //         ]
 //     }
-// }
+//
+
+extension MonthlyScheduleDtoX on MonthlyScheduleDto {
+  MonthlyScheduleLocalDto get toMonthlyScheduleLocalDto {
+    final city = CityLocalDto(
+      id: id,
+      name: lokasi,
+      region: daerah,
+    );
+    final year = jadwal.first.date.year;
+    final month = jadwal.first.date.month;
+    final days = jadwal
+        .map(
+          (e) => DailyScheduleLocalDto(
+            city: city,
+            date: e.date,
+            parsedDate: e.tanggal,
+            imsak: e.imsak,
+            subuh: e.subuh,
+            terbit: e.terbit,
+            dhuha: e.dhuha,
+            dzuhur: e.dzuhur,
+            ashar: e.ashar,
+            maghrib: e.maghrib,
+            isya: e.isya,
+          ),
+        )
+        .toList();
+
+    return MonthlyScheduleLocalDto(
+      city: city,
+      year: year,
+      month: month,
+      days: days,
+    );
+  }
+}

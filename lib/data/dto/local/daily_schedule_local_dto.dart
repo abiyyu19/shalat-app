@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shalat_app/data/data.dart';
+import 'package:shalat_app/domain/domain.dart';
 
 part 'daily_schedule_local_dto.freezed.dart';
 
@@ -21,4 +22,20 @@ sealed class DailyScheduleLocalDto with _$DailyScheduleLocalDto {
     required final String maghrib,
     required final String isya,
   }) = _DailyScheduleLocalDto;
+}
+
+extension DailyScheduleLocalDtoX on DailyScheduleLocalDto {
+  DailyScheduleModel get toDailyScheduleModel => DailyScheduleModel(
+    city: city.toCityModel,
+    date: date,
+    formattedDate: parsedDate,
+    imsak: imsak,
+    subuh: subuh,
+    terbit: terbit,
+    dhuha: dhuha,
+    dzuhur: dzuhur,
+    ashar: ashar,
+    maghrib: maghrib,
+    isya: isya,
+  );
 }

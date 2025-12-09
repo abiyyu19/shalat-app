@@ -8,7 +8,7 @@ part 'daily_schedule_dto.g.dart';
 @freezed
 sealed class DailyScheduleDto with _$DailyScheduleDto {
   const factory DailyScheduleDto({
-    required final int id,
+    required final int id, // city id
     required final String lokasi,
     required final String daerah,
     required final ScheduleDto jadwal,
@@ -35,3 +35,23 @@ sealed class DailyScheduleDto with _$DailyScheduleDto {
 //         "date": "2025-12-02"
 //     }
 // }
+
+extension DailyScheduleDtoX on DailyScheduleDto {
+  DailyScheduleLocalDto get toDailyScheduleLocalDto => DailyScheduleLocalDto(
+    city: CityLocalDto(
+      id: id,
+      name: lokasi,
+      region: daerah,
+    ),
+    date: jadwal.date,
+    parsedDate: jadwal.tanggal,
+    imsak: jadwal.imsak,
+    subuh: jadwal.subuh,
+    terbit: jadwal.terbit,
+    dhuha: jadwal.dhuha,
+    dzuhur: jadwal.dzuhur,
+    ashar: jadwal.ashar,
+    maghrib: jadwal.maghrib,
+    isya: jadwal.isya,
+  );
+}

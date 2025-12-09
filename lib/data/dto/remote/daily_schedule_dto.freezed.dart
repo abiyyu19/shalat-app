@@ -15,7 +15,8 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$DailyScheduleDto {
 
- int get id; String get lokasi; String get daerah; ScheduleDto get jadwal;
+ int get id;// city id
+ String get lokasi; String get daerah; ScheduleDto get jadwal;
 /// Create a copy of DailyScheduleDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -219,6 +220,7 @@ class _DailyScheduleDto implements DailyScheduleDto {
   factory _DailyScheduleDto.fromJson(Map<String, dynamic> json) => _$DailyScheduleDtoFromJson(json);
 
 @override final  int id;
+// city id
 @override final  String lokasi;
 @override final  String daerah;
 @override final  ScheduleDto jadwal;
