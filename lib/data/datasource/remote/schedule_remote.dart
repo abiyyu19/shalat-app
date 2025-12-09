@@ -9,8 +9,8 @@ sealed class ScheduleRemote {
   });
   Future<Result<MonthlyScheduleDto>> getMonthlySchedule({
     required final int cityId,
-    required final String year, // yyyy
-    required final String month, // mm
+    required final int year, // yyyy
+    required final int month, // mm
   });
 }
 
@@ -67,8 +67,8 @@ class ScheduleRemoteImpl implements ScheduleRemote {
   @override
   Future<Result<MonthlyScheduleDto>> getMonthlySchedule({
     required final int cityId,
-    required final String year, // yyyy
-    required final String month, // mm
+    required final int year, // yyyy
+    required final int month, // mm
   }) async {
     try {
       final Response res = await _dio.get(
