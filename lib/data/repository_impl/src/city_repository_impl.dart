@@ -47,7 +47,7 @@ class CityRepositoryImpl implements CityRepository {
       try {
         // Immediately return the non-empty local data
         final List<CityModel> localCities = localCitiesDto
-            .map((cityDto) => cityDto.toCityModel())
+            .map((cityDto) => cityDto.toCityModel)
             .toList();
         return Result.ok(localCities);
       } catch (e) {
@@ -89,7 +89,7 @@ class CityRepositoryImpl implements CityRepository {
 
     try {
       final List<CityLocalDto> citiesLocalDto = citiesDto
-          .map((city) => city.toCityLocalDto())
+          .map((city) => city.toCityLocalDto)
           .toList();
 
       // Save data to local storage only when the list is not empty
@@ -108,7 +108,7 @@ class CityRepositoryImpl implements CityRepository {
       }
 
       final List<CityModel> citiesModel = citiesLocalDto
-          .map((city) => city.toCityModel())
+          .map((city) => city.toCityModel)
           .toList();
 
       // Return the data (empty or not)
@@ -148,7 +148,7 @@ class CityRepositoryImpl implements CityRepository {
 
       try {
         final List<CityModel> localCities = localCitiesDto
-            .map((city) => city.toCityModel())
+            .map((city) => city.toCityModel)
             .toList();
 
         // Local contains results
@@ -175,7 +175,7 @@ class CityRepositoryImpl implements CityRepository {
 
     try {
       final List<CityLocalDto> citiesLocalDto = citiesDto
-          .map((city) => city.toCityLocalDto())
+          .map((city) => city.toCityLocalDto)
           .toList();
 
       // Save to local only if remote returns data
@@ -187,7 +187,7 @@ class CityRepositoryImpl implements CityRepository {
       }
 
       final List<CityModel> citiesModel = citiesLocalDto
-          .map((city) => city.toCityModel())
+          .map((city) => city.toCityModel)
           .toList();
 
       return Result.ok(citiesModel);
@@ -217,7 +217,7 @@ class CityRepositoryImpl implements CityRepository {
       );
 
       try {
-        final CityModel model = localCity.toCityModel();
+        final CityModel model = localCity.toCityModel;
         return Result.ok(model);
       } catch (e) {
         return Result.error(Exception(e));
@@ -247,13 +247,13 @@ class CityRepositoryImpl implements CityRepository {
     // Convert & save to local
 
     try {
-      final CityLocalDto localDto = dto.toCityLocalDto();
+      final CityLocalDto localDto = dto.toCityLocalDto;
       Helper.fireAndForgetWithLog(
         _cityLocal.insertCity(city: localDto),
         operation: 'Insert city to local storage',
       );
 
-      final CityModel model = localDto.toCityModel();
+      final CityModel model = localDto.toCityModel;
       return Result.ok(model);
     } catch (e) {
       return Result.error(Exception(e));

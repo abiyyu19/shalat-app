@@ -13,7 +13,7 @@ sealed class CityLocalDto with _$CityLocalDto {
 }
 
 extension CityLocalX on CityLocalDto {
-  CityModel toCityModel() => CityModel(
+  CityModel get toCityModel => CityModel(
     id: id,
     name: name,
     region: region,

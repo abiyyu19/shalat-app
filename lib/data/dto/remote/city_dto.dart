@@ -22,12 +22,12 @@ sealed class CityDto with _$CityDto {
 // }
 
 extension CityDtoX on CityDto {
-  CityLocalDto toCityLocalDto() => CityLocalDto(
+  CityLocalDto get toCityLocalDto => CityLocalDto(
     id: int.parse(id),
     name: lokasi,
   );
 
-  CityModel toCityModel() => CityModel(
+  CityModel get toCityModel => CityModel(
     id: int.parse(id),
     name: lokasi,
   );
