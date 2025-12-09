@@ -1,41 +1,42 @@
 import 'package:shalat_app/core/core.dart';
-import 'package:shalat_app/domain/domain.dart';
+import 'package:shalat_app/data/data.dart';
 
 abstract interface class ScheduleLocal {
-  Future<Result<DailyScheduleModel>> getDailySchedule({
+  //--- Daily
+  Future<Result<DailyScheduleLocalDto>> getDailySchedule({
     required final int cityId,
-    required final String date,
+    required final DateTime date,
   });
-  Future<Result<MonthlyScheduleModel>> getMonthlySchedule({
-    required final int cityId,
-    required final String year,
-    required final String month,
-  });
-
   Future<Result<void>> insertDailySchedule({
-    required final DailyScheduleModel schedule,
+    required final DailyScheduleLocalDto schedule,
   });
-
-  Future<Result<void>> insertMonthlySchedule({
-    required final MonthlyScheduleModel schedule,
-  });
-
   Future<Result<void>> updateDailySchedule({
-    required final DailyScheduleModel schedule,
+    required final DailyScheduleLocalDto schedule,
   });
-
-  Future<Result<void>> updateMonthlySchedule({
-    required final MonthlyScheduleModel schedule,
-  });
-
   Future<Result<void>> deleteDailySchedule({
     required final int cityId,
-    required final String date,
+    required final DateTime date,
   });
 
+  Future<Result<MonthlyScheduleLocalDto>> getMonthlySchedule({
+    required final int cityId,
+    required final int year,
+    required final int month,
+  });
+  Future<Result<void>> insertMonthlySchedule({
+    required final MonthlyScheduleLocalDto schedule,
+  });
+  Future<Result<void>> updateMonthlySchedule({
+    required final MonthlyScheduleLocalDto schedule,
+  });
+  Future<Result<void>> replaceMonthlySchedule({
+    required final MonthlyScheduleLocalDto schedule,
+  });
   Future<Result<void>> deleteMonthlySchedule({
     required final int cityId,
-    required final String year,
-    required final String month,
+    required final int year,
+    required final int month,
   });
+
+  Future<Result<void>> deleteOlderThanLastThreeMonths();
 }
